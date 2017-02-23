@@ -4,12 +4,12 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="7dp">
 
     <ImageView
         android:id="@+id/iv_channel"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:src="@drawable/menu_cyc" />
 
     <TextView
@@ -20,5 +20,5 @@
         android:gravity="center_horizontal"
         android:text="硅谷视频"
         android:textColor="#000"
-        android:textSize="12sp" />
+        android:textSize="10sp" />
 </LinearLayout>

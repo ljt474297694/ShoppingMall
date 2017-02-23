@@ -2,6 +2,7 @@ package com.atguigu.shoppingmall.home.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -40,6 +41,7 @@ public class HomeFragment extends BaseFragment {
     RecyclerView rvHome;
     @InjectView(R.id.ib_top)
     ImageButton ibTop;
+    private HomeAdapter adapter;
 
     @Override
     public View initView() {
@@ -54,6 +56,9 @@ public class HomeFragment extends BaseFragment {
         getDataFromNet();
     }
 
+    /**
+     * 联网获取数据
+     */
     private void getDataFromNet() {
         OkHttpUtils
                 .get()
@@ -63,7 +68,7 @@ public class HomeFragment extends BaseFragment {
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        Log.e("TAG", "HomeFragment onError()"+e.getMessage());
+                        Log.e("TAG", "HomeFragment onError()" + e.getMessage());
                     }
 
                     @Override
@@ -73,12 +78,19 @@ public class HomeFragment extends BaseFragment {
                 });
     }
 
+    /**
+     * 解析json数据
+     * @param json
+     */
     private void processData(String json) {
-        HomeBean homeBean = JSON.parseObject(json,HomeBean.class);
-        HomeAdapter adapter =   new HomeAdapter(mContext,homeBean.getResult());
+        if (TextUtils.isEmpty(json)) {
+            return;
+        }
+        HomeBean homeBean = JSON.parseObject(json, HomeBean.class);
+        adapter = new HomeAdapter(mContext, homeBean.getResult());
         rvHome.setAdapter(adapter);
 
-        rvHome.setLayoutManager(new LinearLayoutManager(mContext ,LinearLayoutManager.VERTICAL,false));
+        rvHome.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
 
 
     }
@@ -86,8 +98,8 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
         ButterKnife.reset(this);
+        super.onDestroyView();
     }
 
     @OnClick({R.id.ll_main_scan, R.id.tv_search_home, R.id.tv_message_home, R.id.ib_top})

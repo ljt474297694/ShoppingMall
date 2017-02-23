@@ -34,12 +34,8 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         //点击快速进入主页面
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                return true;
-        }
-        return super.onTouchEvent(event);
-
+        startMainActivity();
+        return true;
     }
 
 
