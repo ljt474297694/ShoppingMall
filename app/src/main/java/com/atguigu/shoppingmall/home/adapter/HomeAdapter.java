@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.atguigu.shoppingmall.R;
 import com.atguigu.shoppingmall.home.bean.HomeBean;
@@ -129,6 +131,12 @@ public class HomeAdapter extends RecyclerView.Adapter {
         public void setData(List<HomeBean.ResultBean.ChannelInfoBean> channel_info) {
 
             gvChannel.setAdapter(new ChannelAdapter(mContext,channel_info));
+            gvChannel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(mContext, position+"", Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     }
 
