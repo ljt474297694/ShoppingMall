@@ -30,14 +30,21 @@ public class ViewPagerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         ImageView imageView = new ImageView(mContext);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         Glide.with(mContext)
                 .load(Constants.BASE_URL_IMAGE+datas.get(position).getIcon_url())
                 .crossFade()
                 .into(imageView);
-
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(l!=null) {
+                    l.onClick(position);
+                }
+            }
+        });
         container.addView(imageView);
 
         return imageView;
@@ -57,5 +64,13 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public boolean isViewFromObject(View view, Object object) {
         return view == object;
+    }
+    interface onPagerClickListener{
+        void onClick(int position);
+    }
+    private onPagerClickListener l;
+
+    public void setonPagerClickListener(onPagerClickListener l) {
+        this.l = l;
     }
 }

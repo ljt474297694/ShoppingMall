@@ -1,6 +1,6 @@
 package com.atguigu.shoppingmall.home.fragment;
 
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,6 +24,8 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+import static com.atguigu.shoppingmall.R.id.ib_top;
+
 /**
  * Created by 李金桐 on 2017/2/22.
  * QQ: 474297694
@@ -39,7 +41,7 @@ public class HomeFragment extends BaseFragment {
     TextView tvMessageHome;
     @InjectView(R.id.rv_home)
     RecyclerView rvHome;
-    @InjectView(R.id.ib_top)
+    @InjectView(ib_top)
     ImageButton ibTop;
     private HomeAdapter adapter;
 
@@ -54,6 +56,11 @@ public class HomeFragment extends BaseFragment {
     public void initData() {
         super.initData();
         getDataFromNet();
+        initListener();
+    }
+
+    private void initListener() {
+
     }
 
     /**
@@ -89,9 +96,23 @@ public class HomeFragment extends BaseFragment {
         HomeBean homeBean = JSON.parseObject(json, HomeBean.class);
         adapter = new HomeAdapter(mContext, homeBean.getResult());
         rvHome.setAdapter(adapter);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
+//设置滑动到哪个位置了的监听
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position <= 3) {
+                    ibTop.setVisibility(View.GONE);
+                } else {
+                    ibTop.setVisibility(View.VISIBLE);
+                }
+                //只能返回1
 
-        rvHome.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-
+                return 1;
+            }
+        });
+//设置网格布局
+        rvHome.setLayoutManager(manager);
 
     }
 
@@ -102,7 +123,7 @@ public class HomeFragment extends BaseFragment {
         super.onDestroyView();
     }
 
-    @OnClick({R.id.ll_main_scan, R.id.tv_search_home, R.id.tv_message_home, R.id.ib_top})
+    @OnClick({R.id.ll_main_scan, R.id.tv_search_home, R.id.tv_message_home, ib_top})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_main_scan:
@@ -114,8 +135,8 @@ public class HomeFragment extends BaseFragment {
             case R.id.tv_message_home:
                 Toast.makeText(mContext, "消息", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.ib_top:
-                Toast.makeText(mContext, "回到顶部", Toast.LENGTH_SHORT).show();
+            case ib_top:
+                rvHome.scrollToPosition(0);
                 break;
         }
     }
