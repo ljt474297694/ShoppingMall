@@ -87,6 +87,7 @@ public class HomeFragment extends BaseFragment {
 
     /**
      * 解析json数据
+     *
      * @param json
      */
     private void processData(String json) {
@@ -97,7 +98,7 @@ public class HomeFragment extends BaseFragment {
         adapter = new HomeAdapter(mContext, homeBean.getResult());
         rvHome.setAdapter(adapter);
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 1);
-//设置滑动到哪个位置了的监听
+        //设置滑动到哪个位置了的监听
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -110,8 +111,7 @@ public class HomeFragment extends BaseFragment {
 
                 return 1;
             }
-        });
-//设置网格布局
+        });//设置网格布局
         rvHome.setLayoutManager(manager);
 
     }

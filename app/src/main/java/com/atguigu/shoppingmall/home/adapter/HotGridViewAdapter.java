@@ -62,7 +62,7 @@ public class HotGridViewAdapter extends BaseAdapter {
         }
         Glide.with(mContext).load(Constants.BASE_URL_IMAGE + datas.get(position).getFigure()).into(viewHolder.ivHot);
         viewHolder.tvName.setText(datas.get(position).getName());
-        viewHolder.tvPrice.setText(datas.get(position).getCover_price());
+        viewHolder.tvPrice.setText("￥"+datas.get(position).getCover_price());
 
         return convertView;
     }

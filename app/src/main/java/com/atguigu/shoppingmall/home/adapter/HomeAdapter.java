@@ -1,7 +1,11 @@
 package com.atguigu.shoppingmall.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.atguigu.shoppingmall.R;
+import com.atguigu.shoppingmall.app.GoodsInfoActivity;
+import com.atguigu.shoppingmall.home.bean.GoodsBean;
 import com.atguigu.shoppingmall.home.bean.HomeBean;
 import com.atguigu.shoppingmall.utils.Constants;
 import com.atguigu.shoppingmall.utils.DensityUtil;
@@ -28,6 +34,9 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import cn.iwgang.countdownview.CountdownView;
+
+import static android.view.View.inflate;
 
 /**
  * Created by 李金桐 on 2017/2/23.
@@ -71,6 +80,9 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * 当前类型
      */
     public int currentType = BANNER;
+    private long endTime;
+    public static final String GOODSBEAN = "goodsbean";
+
 
     public HomeAdapter(Context mContext, HomeBean.ResultBean result) {
         this.mContext = mContext;
@@ -100,18 +112,21 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case BANNER:
-                return new BannerViewHolder(View.inflate(mContext, R.layout.banner_viewpager, null));
+                return new BannerViewHolder(inflate(mContext, R.layout.banner_viewpager, null));
             case CHANNEL:
-                return new ChannelViewHolder(View.inflate(mContext, R.layout.channel_item, null));
-            case ACT:
-                return new ActViewHolder(View.inflate(mContext, R.layout.act_item, null));
-            case SECKILL:
-                return new RecommendViewHolder(View.inflate(mContext, R.layout.recommend_item, null));
-            case RECOMMEND:
-                return new HotViewHolder(View.inflate(mContext, R.layout.hot_item, null));
-            case HOT:
 
-                break;
+                return new ChannelViewHolder(inflate(mContext, R.layout.channel_item, null));
+            case ACT:
+                return new ActViewHolder(inflate(mContext, R.layout.act_item, null));
+            case SECKILL:
+                endTime = Long.parseLong(result.getSeckill_info().getEnd_time()) -
+                        Long.parseLong(result.getSeckill_info().getStart_time()) + System.currentTimeMillis();
+                return new SeckillViewHolder(inflate(mContext, R.layout.seckill_item, null));
+            case RECOMMEND:
+                return new RecommendViewHolder(inflate(mContext, R.layout.recommend_item, null));
+            case HOT:
+                return new HotViewHolder(inflate(mContext, R.layout.hot_item, null));
+
         }
         return null;
     }
@@ -123,7 +138,53 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
     @Override
     public int getItemCount() {
-        return 5;
+        return 6;
+    }
+
+
+    class SeckillViewHolder extends BaseViewHolder {
+        @InjectView(R.id.countdownview)
+        CountdownView countdownView;
+        @InjectView(R.id.tv_more_seckill)
+        TextView tvMoreSeckill;
+        @InjectView(R.id.rv_seckill)
+        RecyclerView rvSeckill;
+
+        private Handler handler = new Handler() {
+            public void handleMessage(Message msg) {
+                if (countdownView != null) {
+                    if (countdownView.getRemainTime() <= 0) {
+                        handler.removeCallbacksAndMessages(null);
+                    } else {
+                        countdownView.updateShow(endTime - System.currentTimeMillis());
+                        sendEmptyMessageDelayed(0, 1000);
+                    }
+                }
+            }
+        };
+        public SeckillViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.inject(this, itemView);
+        }
+
+        @Override
+        protected void setData(HomeBean.ResultBean datas) {
+            handler.removeCallbacksAndMessages(null);
+            handler.sendEmptyMessageDelayed(0, 1000);
+            countdownView.start(endTime - System.currentTimeMillis());
+
+            SeckillRecyclerViewAdapter adapter = new SeckillRecyclerViewAdapter(mContext, datas.getSeckill_info());
+
+            adapter.setOnItemClickListener(new SeckillRecyclerViewAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
+                    Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
+                }
+            });
+            rvSeckill.setAdapter(adapter);
+
+            rvSeckill.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        }
     }
 
     class HotViewHolder extends BaseViewHolder {
@@ -140,12 +201,13 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         protected void setData(HomeBean.ResultBean datas) {
-            List<HomeBean.ResultBean.HotInfoBean> hot_info = datas.getHot_info();
-            gvHot.setAdapter(new HotGridViewAdapter(mContext,hot_info));
+             List<HomeBean.ResultBean.HotInfoBean> hot_info = datas.getHot_info();
+            gvHot.setAdapter(new HotGridViewAdapter(mContext, hot_info));
             gvHot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Toast.makeText(mContext, "GridView=" + position, Toast.LENGTH_SHORT).show();
+
                 }
             });
         }
@@ -165,14 +227,22 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         protected void setData(HomeBean.ResultBean datas) {
-            List<HomeBean.ResultBean.RecommendInfoBean> recommend_info = datas.getRecommend_info();
-            final RecommendGridViewAdapter recommendGridViewAdapter = new RecommendGridViewAdapter(mContext, recommend_info);
+            final List<HomeBean.ResultBean.RecommendInfoBean> recommend_info = datas.getRecommend_info();
+             RecommendGridViewAdapter recommendGridViewAdapter = new RecommendGridViewAdapter(mContext, recommend_info);
             gvRecommend.setAdapter(recommendGridViewAdapter);
 
             gvRecommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(mContext, "GridView=" + position, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "GridView=" + position, Toast.LENGTH_SHORT).show();
+                    GoodsBean goodsBean = new GoodsBean();
+                    HomeBean.ResultBean.RecommendInfoBean recommendInfoBean =  recommend_info.get(position);
+                    goodsBean.setCover_price(recommendInfoBean.getCover_price());
+                    goodsBean.setName(recommendInfoBean.getName());
+                    goodsBean.setFigure(recommendInfoBean.getFigure());
+                    goodsBean.setProduct_id(recommendInfoBean.getProduct_id());
+                    mContext.startActivity(new Intent(mContext, GoodsInfoActivity.class).putExtra(GOODSBEAN,goodsBean));
+
 
                 }
             });
@@ -191,6 +261,7 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         public void setData(HomeBean.ResultBean datas) {
             List<HomeBean.ResultBean.ActInfoBean> act_info = datas.getAct_info();
             ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(mContext, act_info);
+
             viewPagerAdapter.setonPagerClickListener(new ViewPagerAdapter.onPagerClickListener() {
                 @Override
                 public void onClick(int position) {

@@ -10,6 +10,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     private Handler handler = new Handler();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -12,6 +12,7 @@ import com.atguigu.shoppingmall.home.bean.HomeBean;
  * 功能: ViewHolder的基类 BaseViewHolder 各种类型的子类会继承此类
  */
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+
     public BaseViewHolder(View itemView) {
         super(itemView);
     }
