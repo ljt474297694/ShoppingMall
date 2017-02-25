@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="1200dp"
+    android:layout_height="wrap_content"
     android:background="#eeee"
     android:orientation="vertical"
     android:gravity="center_vertical"
@@ -35,13 +35,13 @@
             android:text="查看更多" />
     </LinearLayout>
 
-    <GridView
+    <com.atguigu.shoppingmall.home.view.MyGridView
         android:id="@+id/gv_hot"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
-        android:layout_height="1110dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:horizontalSpacing="10dp"
         android:numColumns="2"
-        android:verticalSpacing="10dp"></GridView>
+        android:verticalSpacing="10dp"></com.atguigu.shoppingmall.home.view.MyGridView>
 </LinearLayout>
