@@ -1,4 +1,4 @@
-package com.atguigu.viewpagerandfragment;
+package com.atguigu.viewpagerandfragment.fragment;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,13 +33,6 @@ public class ImageFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         imageView = new ImageView(getActivity());
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().startService(getExplicitIntent(getActivity(),new Intent("com.atguigu.service.MyService")));
-                Log.e("TAG", "ImageFragment onClick()");
-            }
-        });
         return imageView;
     }
 

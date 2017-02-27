@@ -1,12 +1,14 @@
 package com.atguigu.viewpagerandfragment;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.FrameLayout;
+import android.widget.RadioGroup;
+
+import com.atguigu.viewpagerandfragment.fragment.ImageFragment;
+import com.atguigu.viewpagerandfragment.fragment.ViewPagerFragment;
 
 import java.util.ArrayList;
 
@@ -16,70 +18,76 @@ import butterknife.InjectView;
 
 public class MainActivity extends AppCompatActivity {
 
-    @InjectView(R.id.tablelayout)
-    TabLayout tablelayout;
-    @InjectView(R.id.viewpager)
-    ViewPager viewpager;
-    String[] datas = {
-            "http://sjbz.fd.zol-img.com.cn/t_s480x800c/g5/M00/08/0A/ChMkJliEUgWIGWy8AAWUH9AG9zMAAZe7gPrREkABZQ3007.jpg",
-            "http://sjbz.fd.zol-img.com.cn/t_s480x800c/g5/M00/08/0A/ChMkJliEUgWIWzw0AAQmOu8l33oAAZe7gPdxW0ABCZS129.jpg",
-            "http://sjbz.fd.zol-img.com.cn/t_s480x800c/g5/M00/08/0A/ChMkJ1iEUgWIbpwIAAUz5kEUSy0AAZe7wASX0kABTP-083.jpg",
-            "http://sjbz.fd.zol-img.com.cn/t_s480x800c/g5/M00/08/0A/ChMkJ1iEUgWIYAyaAAixGG1uSlAAAZe7wAJrhkACLEw058.jpg",
-            "http://sjbz.fd.zol-img.com.cn/t_s480x800c/g5/M00/08/0A/ChMkJliEUgWIRotxAATQL-FHoo4AAZe7wAE3dIABNBH087.jpg"
-    };
-    private ArrayList<ImageFragment> fragments;
 
+    @InjectView(R.id.fl_main)
+    FrameLayout flMain;
+    @InjectView(R.id.rg_main)
+    RadioGroup rgMain;
+    private Fragment tempFragment;
+    private ArrayList<Fragment> fragments;
+    String data = "http://imgsrc.baidu.com/forum/pic/item/3e950a7b02087bf45010fc7efbd3572c10dfcfad.jpg";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        initFragment();
         initData();
+        initListener();
     }
 
-    private void initFragment() {
-        fragments = new ArrayList<>();
-        ImageFragment imageFragment;
-        for(int i = 0; i <datas.length ; i++) {
-            Bundle bundle = new Bundle();
-            bundle.putString("image",datas[i]);
-
-            imageFragment = new ImageFragment();
-            imageFragment.setArguments(bundle);
-
-            fragments.add(imageFragment);
-        }
+    private void initListener() {
+        rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case  R.id.bt_1:
+                        switchFragment(fragments.get(0));
+                        break;
+                    case  R.id.bt_2:
+                        switchFragment(fragments.get(1));
+                        break;
+                }
+            }
+        });
+        rgMain.check(R.id.bt_1);
     }
+
     private void initData() {
-
-        viewpager.setAdapter(new MyAdapter(getSupportFragmentManager()));
-
-        tablelayout.setupWithViewPager(viewpager);
+        fragments = new ArrayList<>();
+        fragments.add(new ViewPagerFragment());
+        ImageFragment imageFragment = new ImageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("image",data);
+        imageFragment.setArguments(bundle);
+        fragments.add(imageFragment);
     }
+
 
     private void initView() {
         ButterKnife.inject(this);
     }
 
-    class MyAdapter extends FragmentPagerAdapter{
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return "第"+(position+1)+"页";
-        }
 
-        public MyAdapter(FragmentManager fm) {
-            super(fm);
-        }
 
-        @Override
-        public Fragment getItem(int position) {
-            return fragments.get(position);
-        }
 
-        @Override
-        public int getCount() {
-            return fragments.size();
+    private void switchFragment(Fragment currentFragment) {
+        if (tempFragment != currentFragment) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+            if (currentFragment.isAdded()) {
+                if (tempFragment != null) {
+                    ft.hide(tempFragment);
+                }
+                ft.show(currentFragment);
+            } else {
+                if (tempFragment != null) {
+                    ft.hide(tempFragment);
+                }
+                ft.add(R.id.fl_main, currentFragment);
+            }
+            tempFragment = currentFragment;
+            ft.commit();
         }
     }
+
 }
