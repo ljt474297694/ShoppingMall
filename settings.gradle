@@ -1,1 +1,1 @@
-include ':app', ':ViewPagerAndFragment', ':service'
+include ':app', ':ViewPagerAndFragment', ':service', ':SqliteDemo'
