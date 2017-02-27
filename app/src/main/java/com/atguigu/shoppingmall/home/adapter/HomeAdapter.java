@@ -162,13 +162,14 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 }
             }
         };
+
         public SeckillViewHolder(View itemView) {
             super(itemView);
             ButterKnife.inject(this, itemView);
         }
 
         @Override
-        protected void setData(HomeBean.ResultBean datas) {
+        protected void setData(final HomeBean.ResultBean datas) {
             handler.removeCallbacksAndMessages(null);
             handler.sendEmptyMessageDelayed(0, 1000);
             countdownView.start(endTime - System.currentTimeMillis());
@@ -178,7 +179,16 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             adapter.setOnItemClickListener(new SeckillRecyclerViewAdapter.OnItemClickListener() {
                 @Override
                 public void onClick(int position) {
-                    Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "" + position, Toast.LENGTH_SHORT).show();
+
+                    GoodsBean goodsBean = new GoodsBean();
+                    HomeBean.ResultBean.SeckillInfoBean.ListBean listBean = datas.getSeckill_info().getList().get(position);
+                    goodsBean.setCover_price(listBean.getCover_price());
+                    goodsBean.setName(listBean.getName());
+                    goodsBean.setFigure(listBean.getFigure());
+                    goodsBean.setProduct_id(listBean.getProduct_id());
+                    mContext.startActivity(new Intent(mContext, GoodsInfoActivity.class).putExtra(GOODSBEAN, goodsBean));
+
                 }
             });
             rvSeckill.setAdapter(adapter);
@@ -201,12 +211,19 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
         @Override
         protected void setData(HomeBean.ResultBean datas) {
-             List<HomeBean.ResultBean.HotInfoBean> hot_info = datas.getHot_info();
+            final List<HomeBean.ResultBean.HotInfoBean> hot_info = datas.getHot_info();
             gvHot.setAdapter(new HotGridViewAdapter(mContext, hot_info));
             gvHot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(mContext, "GridView=" + position, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "GridView=" + position, Toast.LENGTH_SHORT).show();
+                    GoodsBean goodsBean = new GoodsBean();
+                    HomeBean.ResultBean.HotInfoBean hotInfoBean = hot_info.get(position);
+                    goodsBean.setCover_price(hotInfoBean.getCover_price());
+                    goodsBean.setName(hotInfoBean.getName());
+                    goodsBean.setFigure(hotInfoBean.getFigure());
+                    goodsBean.setProduct_id(hotInfoBean.getProduct_id());
+                    mContext.startActivity(new Intent(mContext, GoodsInfoActivity.class).putExtra(GOODSBEAN, goodsBean));
 
                 }
             });
@@ -228,7 +245,7 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
         @Override
         protected void setData(HomeBean.ResultBean datas) {
             final List<HomeBean.ResultBean.RecommendInfoBean> recommend_info = datas.getRecommend_info();
-             RecommendGridViewAdapter recommendGridViewAdapter = new RecommendGridViewAdapter(mContext, recommend_info);
+            RecommendGridViewAdapter recommendGridViewAdapter = new RecommendGridViewAdapter(mContext, recommend_info);
             gvRecommend.setAdapter(recommendGridViewAdapter);
 
             gvRecommend.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -236,12 +253,12 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                    Toast.makeText(mContext, "GridView=" + position, Toast.LENGTH_SHORT).show();
                     GoodsBean goodsBean = new GoodsBean();
-                    HomeBean.ResultBean.RecommendInfoBean recommendInfoBean =  recommend_info.get(position);
+                    HomeBean.ResultBean.RecommendInfoBean recommendInfoBean = recommend_info.get(position);
                     goodsBean.setCover_price(recommendInfoBean.getCover_price());
                     goodsBean.setName(recommendInfoBean.getName());
                     goodsBean.setFigure(recommendInfoBean.getFigure());
                     goodsBean.setProduct_id(recommendInfoBean.getProduct_id());
-                    mContext.startActivity(new Intent(mContext, GoodsInfoActivity.class).putExtra(GOODSBEAN,goodsBean));
+                    mContext.startActivity(new Intent(mContext, GoodsInfoActivity.class).putExtra(GOODSBEAN, goodsBean));
 
 
                 }
@@ -265,7 +282,9 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             viewPagerAdapter.setonPagerClickListener(new ViewPagerAdapter.onPagerClickListener() {
                 @Override
                 public void onClick(int position) {
-                    Toast.makeText(mContext, "ViewPager=" + position, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "ViewPager=" + position, Toast.LENGTH_SHORT).show();
+
+
                 }
             });
             actViewpager.setAdapter(viewPagerAdapter);
@@ -295,7 +314,8 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
             gvChannel.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Toast.makeText(mContext, position + "", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, position + "", Toast.LENGTH_SHORT).show();
+
                 }
             });
         }
