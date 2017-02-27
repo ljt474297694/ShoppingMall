@@ -1,9 +1,13 @@
 package com.atguigu.shoppingmall.app;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -64,19 +68,61 @@ public class GoodsInfoActivity extends AppCompatActivity {
     Button btnMore;
     @InjectView(R.id.ll_root)
     LinearLayout llRoot;
+    private GoodsBean goodsBean;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_info);
         ButterKnife.inject(this);
-        GoodsBean goodsBean = (GoodsBean) getIntent().getSerializableExtra(HomeAdapter.GOODSBEAN);
-        if(goodsBean!=null) {
-            Glide.with(this).load(Constants.BASE_URL_IMAGE + goodsBean.getFigure()).into(ivGoodInfoImage);
-            tvGoodInfoName.setText(goodsBean.getName());
-            tvGoodInfoPrice.setText("￥"+goodsBean.getCover_price());
-        }
+        getData();
 
+    }
+
+    private void getData() {
+        goodsBean = (GoodsBean) getIntent().getSerializableExtra(HomeAdapter.GOODS_BEAN);
+        if(goodsBean !=null) {
+            setData();
+        }
+    }
+
+    private void setData() {
+        Glide.with(this).load(Constants.BASE_URL_IMAGE + goodsBean.getFigure()).into(ivGoodInfoImage);
+        tvGoodInfoName.setText(goodsBean.getName());
+        tvGoodInfoPrice.setText("￥"+goodsBean.getCover_price());
+        loadWeb("http://mp.weixin.qq.com/s/Cf3DrW2lnlb-w4wYaxOEZg");
+    }
+
+    private void loadWeb(String url) {
+        WebSettings settings = wbGoodInfoMore.getSettings();
+        settings.setJavaScriptEnabled(true);
+
+        settings.setBuiltInZoomControls(true);
+
+        settings.setUseWideViewPort(true);
+
+        wbGoodInfoMore.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    view.loadUrl(request.getUrl().toString());
+                }
+                return true;
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                progressbar.setVisibility(View.GONE);
+            }
+        });
+        wbGoodInfoMore.loadUrl(url);
     }
 
 
