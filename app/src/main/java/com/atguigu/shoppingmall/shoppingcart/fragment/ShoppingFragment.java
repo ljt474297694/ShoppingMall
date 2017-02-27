@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.atguigu.shoppingmall.base.BaseFragment;
+import com.atguigu.shoppingmall.home.bean.GoodsBean;
+import com.atguigu.shoppingmall.shoppingcart.utils.CartStorage;
+
+import java.util.List;
 
 /**
  * Created by 李金桐 on 2017/2/22.
@@ -29,5 +33,16 @@ public class ShoppingFragment extends BaseFragment {
         super.initData();
         Log.e("TAG","购物车数据被初始化了");
         textView.setText("购物车");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        List<GoodsBean> allData = CartStorage.getInstance(mContext).getAllData();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
     }
 }
