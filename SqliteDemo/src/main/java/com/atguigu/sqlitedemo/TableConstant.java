@@ -16,7 +16,8 @@ public class TableConstant {
 
     public static final String CREATE_TABLE =
             "create table " + TABLE_NAME + " ("
-                    + FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                    + FIELD_ID + " INTEGER PRIMARY KEY " +
+                    "AUTOINCREMENT,"
                     + FIELD_NAME + " text)" ;
 
     public static final String UPDATA_CREATE_TABLE =
@@ -24,4 +25,7 @@ public class TableConstant {
                     + FIELD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                     + FIELD_NAME + " text,"
                     + FIELD_HOBBY + " text)";
+
+    
+
 }

@@ -62,9 +62,15 @@ public class MainActivity extends AppCompatActivity {
         studentDAO = new StudentDAO(this, version);
     }
 
-    @OnClick({R.id.bt_select, R.id.bt_add, R.id.bt_updata, R.id.bt_delete, R.id.bt_updata_table})
+    @OnClick({R.id.bt_select, R.id.bt_add, R.id.bt_updata, R.id.bt_delete, R.id.bt_updata_table,R.id.bt_delete_table})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.bt_delete_table:
+                studentDAO.deleteTable();
+                tvContent.setText("删除成功");
+                getSharedPreferences("version", MODE_PRIVATE).edit().putInt("version", 1).commit();
+                version = getSharedPreferences("version", MODE_PRIVATE).getInt("version", 1);
+                break;
             case R.id.bt_updata_table:
                 getSharedPreferences("version", MODE_PRIVATE).edit().putInt("version", 2).commit();
                 version = getSharedPreferences("version", MODE_PRIVATE).getInt("version", 1);

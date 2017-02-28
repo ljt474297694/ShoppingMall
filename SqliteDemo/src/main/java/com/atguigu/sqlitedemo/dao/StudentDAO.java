@@ -19,8 +19,8 @@ import java.util.ArrayList;
 
 public class StudentDAO {
 
-    private final StudentDB studentDB;
-    private final int version;
+    public  StudentDB studentDB;
+    private  int version;
 
     public StudentDAO(Context mContext, int version) {
         this.version = version;
@@ -28,7 +28,7 @@ public class StudentDAO {
     }
 
     public void add(Student student) {
-        if (student == null) return;
+        if (student == null) return; //校验
 
         SQLiteDatabase database = studentDB.getReadableDatabase();
         ContentValues initialValues = new ContentValues();
@@ -71,5 +71,9 @@ public class StudentDAO {
         cursor.close();
         return students;
     }
-
+    public void deleteTable(){
+        SQLiteDatabase database = studentDB.getReadableDatabase();
+        database.execSQL("drop table " + TableConstant.TABLE_NAME);
+        database.execSQL(TableConstant.CREATE_TABLE);
+    }
 }
