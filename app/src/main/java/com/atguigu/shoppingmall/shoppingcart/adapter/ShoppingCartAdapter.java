@@ -10,10 +10,12 @@ import android.widget.TextView;
 
 import com.atguigu.shoppingmall.R;
 import com.atguigu.shoppingmall.home.bean.GoodsBean;
+import com.atguigu.shoppingmall.shoppingcart.utils.CartStorage;
 import com.atguigu.shoppingmall.shoppingcart.view.AddSubView;
 import com.atguigu.shoppingmall.utils.Constants;
 import com.bumptech.glide.Glide;
 
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -65,7 +67,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        GoodsBean goodsBean = datas.get(position);
+        final GoodsBean goodsBean = datas.get(position);
         //2.绑定数据
         holder.cbGov.setChecked(goodsBean.isChecked());
         //图片
@@ -74,11 +76,21 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         //设置价格
         holder.tvPriceGov.setText("￥" + goodsBean.getCover_price());
         holder.addSubView.setValue(goodsBean.getNumber());
-
         holder.addSubView.setMinValue(1);
         //设置库存
         holder.addSubView.setMaxValue(100);
-    }
+        holder.addSubView.setOnNumberChangeListener(new AddSubView.OnNumberChangeListener() {
+            @Override
+            public void onNumberChenge(int number) {
+                goodsBean.setNumber(number);
+
+                CartStorage.getInstance(mContext).updataData(goodsBean);
+
+                showTotalPrice();
+
+        }
+    });
+}
 
     @Override
     public int getItemCount() {
@@ -115,6 +127,23 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
             checkboxDeleteAll.setChecked(checked);
             //更新视图
             notifyItemChanged(i);
+        }
+    }
+
+    public void deleteData() {
+        if(datas != null && datas.size() >0){
+            for(Iterator iterator = datas.iterator(); iterator.hasNext();){
+                GoodsBean cart = (GoodsBean) iterator.next();
+                if(cart.isChecked()){
+                    //根据对象找到在列表中的位置
+                    int position = datas.indexOf(cart);
+                    //从本地中删除
+                    CartStorage.getInstance(mContext).deleteData(cart);
+                    iterator.remove();
+                    //刷新页面
+                    notifyItemRemoved(position);
+                }
+            }
         }
     }
 

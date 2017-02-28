@@ -91,7 +91,7 @@ public class AddSubView extends LinearLayout {
             }
         });
     }
-    interface OnNumberChangeListener{
+  public   interface OnNumberChangeListener{
         void onNumberChenge(int number);
     }
     private  OnNumberChangeListener l;
@@ -114,6 +114,7 @@ public class AddSubView extends LinearLayout {
 
     public void setValue(int value) {
         this.value = value;
+        tv_value.setText(value+"");
     }
 
     public int getMinValue() {

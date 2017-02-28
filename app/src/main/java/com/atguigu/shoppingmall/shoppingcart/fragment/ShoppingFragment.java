@@ -59,16 +59,12 @@ public class ShoppingFragment extends BaseFragment {
     LinearLayout llEmptyShopcart;
     private List<GoodsBean> datas;
     private ShoppingCartAdapter adapter;
-    private boolean isEdit = true;
+    private boolean isEdit;
 
     @Override
     public View initView() {
         View view = View.inflate(mContext, R.layout.fragment_shopping_cart, null);
         ButterKnife.inject(this, view);
-        tvShopcartEdit.setText("编辑");
-        isEdit = true;
-        //编辑页面
-        llCheckAll.setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -80,6 +76,8 @@ public class ShoppingFragment extends BaseFragment {
     }
 
     private void showData() {
+        isEdit = false;
+        showOrHideDelete();
         datas = CartStorage.getInstance(mContext).getAllData();
         if (datas != null && datas.size() > 0) {
 
@@ -106,6 +104,9 @@ public class ShoppingFragment extends BaseFragment {
                 }
             });
             adapter.checkAll();
+            if( !isEdit) {
+                adapter.checkAll_none(false);
+            }
         } else {
             llEmptyShopcart.setVisibility(View.VISIBLE);
         }
@@ -124,6 +125,7 @@ public class ShoppingFragment extends BaseFragment {
 //                Toast.makeText(mContext, "全选", Toast.LENGTH_SHORT).show();
                 //全选和反全选
                 adapter.checkAll_none(checkboxAll.isChecked());
+
                 //显示总价格
                 adapter.showTotalPrice();
                 break;
@@ -131,10 +133,17 @@ public class ShoppingFragment extends BaseFragment {
                 Toast.makeText(mContext, "结算", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.checkbox_delete_all:
-                Toast.makeText(mContext, "删除全选", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "删除全选", Toast.LENGTH_SHORT).show();
+                //全选和反全选
+                adapter.checkAll_none(checkboxDeleteAll.isChecked());
+                //显示总价格
+                adapter.showTotalPrice();
                 break;
             case R.id.btn_delete:
-                Toast.makeText(mContext, "删除按钮", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "删除按钮", Toast.LENGTH_SHORT).show();
+                adapter.deleteData();
+                adapter.checkAll();
+                showEempty();
                 break;
             case R.id.btn_collection:
                 Toast.makeText(mContext, "收藏", Toast.LENGTH_SHORT).show();
@@ -144,6 +153,9 @@ public class ShoppingFragment extends BaseFragment {
                 break;
         }
     }
+    /**
+     *    删除与购买模式切换的方法
+     */
 
     private void showOrHideDelete() {
         isEdit = !isEdit;
@@ -159,7 +171,14 @@ public class ShoppingFragment extends BaseFragment {
         }
     }
 
-
+    /**
+     * 没有数据的时候显示
+     */
+    private void showEempty() {
+        if(adapter.getItemCount() == 0){
+            llEmptyShopcart.setVisibility(View.VISIBLE);
+        }
+    }
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
