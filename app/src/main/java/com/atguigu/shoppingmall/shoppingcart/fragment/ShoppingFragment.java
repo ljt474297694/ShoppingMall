@@ -59,11 +59,16 @@ public class ShoppingFragment extends BaseFragment {
     LinearLayout llEmptyShopcart;
     private List<GoodsBean> datas;
     private ShoppingCartAdapter adapter;
+    private boolean isEdit = true;
 
     @Override
     public View initView() {
         View view = View.inflate(mContext, R.layout.fragment_shopping_cart, null);
         ButterKnife.inject(this, view);
+        tvShopcartEdit.setText("编辑");
+        isEdit = true;
+        //编辑页面
+        llCheckAll.setVisibility(View.VISIBLE);
         return view;
     }
 
@@ -111,7 +116,9 @@ public class ShoppingFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_shopcart_edit:
-                Toast.makeText(mContext, "编辑", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "编辑", Toast.LENGTH_SHORT).show();
+                //切换状态 一个方法搞定
+                showOrHideDelete();
                 break;
             case R.id.checkbox_all:
 //                Toast.makeText(mContext, "全选", Toast.LENGTH_SHORT).show();
@@ -137,6 +144,21 @@ public class ShoppingFragment extends BaseFragment {
                 break;
         }
     }
+
+    private void showOrHideDelete() {
+        isEdit = !isEdit;
+        //如果是编辑状态 就显示编辑 隐藏删除 文本改变 单选框改变 反之同理
+        llDelete.setVisibility(isEdit ? View.GONE : View.VISIBLE);
+        llCheckAll.setVisibility(isEdit ? View.VISIBLE : View.GONE);
+        tvShopcartEdit.setText(isEdit ? "编辑" : "完成");
+
+        if (adapter != null) {
+            adapter.checkAll_none(isEdit);
+            adapter.checkAll();
+            adapter.showTotalPrice();
+        }
+    }
+
 
     @Override
     public void onHiddenChanged(boolean hidden) {
