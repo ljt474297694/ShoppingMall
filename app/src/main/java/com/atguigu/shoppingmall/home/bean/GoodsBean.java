@@ -21,10 +21,19 @@ public class GoodsBean implements Serializable {
     private String figure;
     private String name;
     private String product_id;
+    private boolean isChecked = true;
     /**
      * 某个商品在购物车购买的数量
      */
     private int number = 1;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public int getNumber() {
         return number;

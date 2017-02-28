@@ -1,5 +1,6 @@
 package com.atguigu.shoppingmall.shoppingcart.fragment;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +13,11 @@ import android.widget.Toast;
 
 import com.atguigu.shoppingmall.R;
 import com.atguigu.shoppingmall.base.BaseFragment;
+import com.atguigu.shoppingmall.home.bean.GoodsBean;
+import com.atguigu.shoppingmall.shoppingcart.adapter.ShoppingCartAdapter;
+import com.atguigu.shoppingmall.shoppingcart.utils.CartStorage;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -51,6 +57,8 @@ public class ShoppingFragment extends BaseFragment {
     TextView tvEmptyCartTobuy;
     @InjectView(R.id.ll_empty_shopcart)
     LinearLayout llEmptyShopcart;
+    private List<GoodsBean> datas;
+    private ShoppingCartAdapter adapter;
 
     @Override
     public View initView() {
@@ -63,6 +71,22 @@ public class ShoppingFragment extends BaseFragment {
     public void initData() {
         super.initData();
         Log.e("TAG", "购物车数据被初始化了");
+        showData();
+    }
+
+    private void showData() {
+        datas = CartStorage.getInstance(mContext).getAllData();
+        if (datas != null && datas.size() > 0) {
+
+            llEmptyShopcart.setVisibility(View.GONE);
+            adapter = new ShoppingCartAdapter(mContext,datas,checkboxAll,tvShopcartTotal,checkboxDeleteAll);
+            recyclerview.setAdapter(adapter);
+
+            recyclerview.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+
+        } else {
+            llEmptyShopcart.setVisibility(View.VISIBLE);
+        }
     }
 
     @OnClick({R.id.tv_shopcart_edit, R.id.checkbox_all, R.id.btn_check_out, R.id.checkbox_delete_all, R.id.btn_delete, R.id.btn_collection, R.id.tv_empty_cart_tobuy})
@@ -91,11 +115,12 @@ public class ShoppingFragment extends BaseFragment {
                 break;
         }
     }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-
+            showData();
         }
     }
 
