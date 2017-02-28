@@ -79,14 +79,32 @@ public class ShoppingFragment extends BaseFragment {
         if (datas != null && datas.size() > 0) {
 
             llEmptyShopcart.setVisibility(View.GONE);
-            adapter = new ShoppingCartAdapter(mContext,datas,checkboxAll,tvShopcartTotal,checkboxDeleteAll);
+            adapter = new ShoppingCartAdapter(mContext, datas, checkboxAll, tvShopcartTotal, checkboxDeleteAll);
             recyclerview.setAdapter(adapter);
 
-            recyclerview.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
+            recyclerview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+            adapter.setOnItemClickListener(new ShoppingCartAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClickListener(View view, int position) {
+                    //得到bean对象
+                    GoodsBean goodsBean = adapter.datas.get(position);
+                    //选择状态取反
+                    goodsBean.setChecked(!goodsBean.isChecked());
+                    //刷新此条数据
+                    adapter.notifyItemChanged(position);
+                    //刷新价格
+                    adapter.showTotalPrice();
 
+                    //3.校验是否全选
+                    adapter.checkAll();
+
+                }
+            });
+            adapter.checkAll();
         } else {
             llEmptyShopcart.setVisibility(View.VISIBLE);
         }
+
     }
 
     @OnClick({R.id.tv_shopcart_edit, R.id.checkbox_all, R.id.btn_check_out, R.id.checkbox_delete_all, R.id.btn_delete, R.id.btn_collection, R.id.tv_empty_cart_tobuy})
@@ -96,7 +114,11 @@ public class ShoppingFragment extends BaseFragment {
                 Toast.makeText(mContext, "编辑", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.checkbox_all:
-                Toast.makeText(mContext, "全选", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "全选", Toast.LENGTH_SHORT).show();
+                //全选和反全选
+                adapter.checkAll_none(checkboxAll.isChecked());
+                //显示总价格
+                adapter.showTotalPrice();
                 break;
             case R.id.btn_check_out:
                 Toast.makeText(mContext, "结算", Toast.LENGTH_SHORT).show();
