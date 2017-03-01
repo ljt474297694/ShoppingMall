@@ -1,2 +1,2 @@
 include ':app', ':ViewPagerAndFragment', ':service', ':SqliteDemo', ':EventDemo'
-include ':alipay_demo'
+

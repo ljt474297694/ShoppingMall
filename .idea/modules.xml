@@ -6,7 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/ShoppingMall.iml" filepath="$PROJECT_DIR$/ShoppingMall.iml" />
       <module fileurl="file://$PROJECT_DIR$/SqliteDemo/SqliteDemo.iml" filepath="$PROJECT_DIR$/SqliteDemo/SqliteDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/ViewPagerAndFragment/ViewPagerAndFragment.iml" filepath="$PROJECT_DIR$/ViewPagerAndFragment/ViewPagerAndFragment.iml" />
-      <module fileurl="file://$PROJECT_DIR$/alipay_demo/alipay_demo.iml" filepath="$PROJECT_DIR$/alipay_demo/alipay_demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" />
     </modules>

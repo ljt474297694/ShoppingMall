@@ -23,9 +23,10 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop" />
+            android:launchMode="singleTask" />
         <activity android:name=".app.GoodsInfoActivity" />
-        <activity android:name=".app.WebViewActivity"></activity>
+        <activity android:name=".app.WebViewActivity"
+           ></activity>
         <!-- alipay sdk begin -->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"

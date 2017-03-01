@@ -1,5 +1,6 @@
 package com.atguigu.shoppingmall;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -98,4 +99,21 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new ShoppingFragment());
         fragments.add(new UserFragment());
     }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        //得到id
+        int  checkId = intent.getIntExtra("checkId",R.id.rb_home);
+        switch (checkId){
+            case R.id.rb_home:
+                //切换到主页面
+                rgMain.check(R.id.rb_home);
+                break;
+            case R.id.rb_cart:
+                //切换到购物车
+                rgMain.check(R.id.rb_cart);
+                break;
+        }
+    }
+
 }
