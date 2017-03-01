@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.atguigu.eventdemo.dispatch.ViewGroup1 xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_dispatch"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#aa000088"
+    android:layout_margin="20dp"
+    tools:context="com.atguigu.eventdemo.dispatch.DispatchActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="ViewGroup1"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textSize="20sp" />
+
+    <com.atguigu.eventdemo.dispatch.ViewGroup2
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="#77000088">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="ViewGroup2"
+            android:textColor="@android:color/holo_blue_bright"
+            android:textSize="20sp" />
+        <com.atguigu.eventdemo.dispatch.View
+            android:layout_gravity="center"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="#aa44ff44"
+            android:text="View"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            />
+
+    </com.atguigu.eventdemo.dispatch.ViewGroup2>
+
+</com.atguigu.eventdemo.dispatch.ViewGroup1>

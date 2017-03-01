@@ -147,6 +147,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
                 break;
             case R.id.btn_good_info_addcart:
 //                Toast.makeText(this, "添加到购物车", Toast.LENGTH_SHORT).show();
+
                 CartStorage.getInstance(this).addData(goodsBean);
                 break;
             case R.id.tv_more_share:

@@ -47,7 +47,7 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         tvShopcartTotal.setText(getTotalPrice() + "￥");
     }
 
-    private double getTotalPrice() {
+    public double getTotalPrice() {
         double b = 0;
         if (datas != null && datas.size() > 0) {
             for (int i = 0; i < datas.size(); i++) {

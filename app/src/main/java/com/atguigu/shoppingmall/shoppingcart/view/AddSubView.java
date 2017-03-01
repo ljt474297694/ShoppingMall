@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.TintTypedArray;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -91,7 +92,13 @@ public class AddSubView extends LinearLayout {
             }
         });
     }
-  public   interface OnNumberChangeListener{
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    public   interface OnNumberChangeListener{
         void onNumberChenge(int number);
     }
     private  OnNumberChangeListener l;
