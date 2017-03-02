@@ -99,7 +99,13 @@ public class GoodsInfoActivity extends AppCompatActivity {
     }
 
     private void setData() {
-        Glide.with(this).load(Constants.BASE_URL_IMAGE + goodsBean.getFigure()).into(ivGoodInfoImage);
+
+        if(goodsBean.getFigure()==null) {
+
+            Glide.with(this).load("http://static.biligame.net/fgo/res_common/img/banner-2017-02-23-1.jpg").into(ivGoodInfoImage);
+        }else{
+            Glide.with(this).load(Constants.BASE_URL_IMAGE + goodsBean.getFigure()).into(ivGoodInfoImage);
+        }
         tvGoodInfoName.setText(goodsBean.getName());
         tvGoodInfoPrice.setText("￥"+goodsBean.getCover_price());
         loadWeb("http://mp.weixin.qq.com/s/Cf3DrW2lnlb-w4wYaxOEZg");
@@ -148,7 +154,8 @@ public class GoodsInfoActivity extends AppCompatActivity {
                 llRoot.setVisibility(llRoot.isShown() ? View.GONE : View.VISIBLE);
                 break;
             case R.id.tv_good_info_callcenter:
-                Toast.makeText(this, "客服中心", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "客服中心", Toast.LENGTH_SHORT).show();
+             startActivity(new Intent(this,CallCenterActivity.class));
                 break;
             case R.id.tv_good_info_collection:
                 Toast.makeText(this, "收藏", Toast.LENGTH_SHORT).show();
@@ -254,9 +261,7 @@ public class GoodsInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 window.dismiss();
-                if(isExist&& tempGoodsBean.getNumber()==1){
-                    tempGoodsBean.setNumber(tempGoodsBean.getNumber()+1);
-                }
+
             }
         });
 

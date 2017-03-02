@@ -26,6 +26,7 @@ public class ViewGroup2 extends FrameLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.e("TAG", "ViewGroup2 onTouchEvent()"+actionToStr(event.getAction()));
+        getParent().requestDisallowInterceptTouchEvent(true);
         return super.onTouchEvent(event);
     }
 

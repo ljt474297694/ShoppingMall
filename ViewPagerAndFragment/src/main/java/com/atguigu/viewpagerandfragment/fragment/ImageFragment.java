@@ -1,5 +1,7 @@
 package com.atguigu.viewpagerandfragment.fragment;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.atguigu.viewpagerandfragment.BreatheInterpolator;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -42,7 +45,11 @@ public class ImageFragment extends Fragment {
         String image = getArguments().getString("image");
         if (!TextUtils.isEmpty(image)) {
             Glide.with(getActivity()).load(image).into(imageView);
-
+            ObjectAnimator alpha = ObjectAnimator.ofFloat(imageView,"alpha",0f,1f);
+            alpha.setDuration(4000);
+            alpha.setInterpolator(new BreatheInterpolator());
+            alpha.setRepeatCount(ValueAnimator.INFINITE);
+            alpha.start();
         }
     }
     public static Intent getExplicitIntent(Context context, Intent implicitIntent) {

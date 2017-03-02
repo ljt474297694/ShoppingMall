@@ -27,7 +27,7 @@ public class View extends TextView {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.e("TAG", "View onTouchEvent()"+actionToStr(event.getAction()));
-
+        getParent().requestDisallowInterceptTouchEvent(true);
         return super.onTouchEvent(event);
     }
     public String actionToStr(int action){
