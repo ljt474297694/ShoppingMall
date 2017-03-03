@@ -17,8 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.bt_dispatch)
     Button btDispatch;
-    @InjectView(R.id.bt_intercept)
-    Button btIntercept;
     @InjectView(R.id.activity_main)
     LinearLayout activityMain;
 
@@ -29,17 +27,13 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.inject(this);
     }
 
-    @OnClick({R.id.bt_dispatch, R.id.bt_intercept})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.bt_dispatch:
-                startActivity(new Intent(this, DispatchActivity.class));
-                break;
-            case R.id.bt_intercept:
-
-                break;
-        }
+        @OnClick({R.id.bt_dispatch})
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.bt_dispatch:
+                    startActivity(new Intent(this, DispatchActivity.class));
+                    break;
+            }
     }
-
 
 }

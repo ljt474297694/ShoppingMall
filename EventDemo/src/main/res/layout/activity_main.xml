@@ -9,15 +9,11 @@
     android:orientation="vertical"
     tools:context="com.atguigu.eventdemo.MainActivity">
 
-    <Button
+    <com.atguigu.eventdemo.Button
         android:id="@+id/bt_dispatch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text= "事件分发"/>
-    <Button
-        android:id="@+id/bt_intercept"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text= "事件拦截与反拦截"/>
+
 
 </LinearLayout>
