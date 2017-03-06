@@ -119,8 +119,7 @@
 
 
     <!--侧滑菜单4个布局-->
-<!--
-    &lt;!&ndash;侧滑菜单&ndash;&gt;
+    <!--侧滑菜单-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -134,7 +133,7 @@
         <include layout="@layout/recommend_theme_layout" />
 
         <include layout="@layout/drawer_type_layout" />
-    </RelativeLayout>-->
+    </RelativeLayout>
 
 
 
