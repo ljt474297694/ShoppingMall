@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.atguigu.shoppingmall.R;
 import com.atguigu.shoppingmall.app.GoodsInfoActivity;
+import com.atguigu.shoppingmall.home.adapter.ExpandableListViewAdapter;
 import com.atguigu.shoppingmall.home.adapter.GoodsListAdapter;
 import com.atguigu.shoppingmall.home.adapter.HomeAdapter;
 import com.atguigu.shoppingmall.home.bean.GoodsBean;
@@ -32,6 +33,8 @@ import com.atguigu.shoppingmall.home.bean.TypeListBean;
 import com.atguigu.shoppingmall.utils.Constants;
 import com.atguigu.shoppingmall.utils.DensityUtil;
 import com.atguigu.shoppingmall.utils.NetUtils;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -203,6 +206,9 @@ public class GoodsListActivity extends AppCompatActivity {
     private GoodsListAdapter adapter;
 
     private boolean isDesc = true; // 默认箭头向下红
+    private ArrayList<String> group;
+    private ArrayList<ArrayList<String>> child;
+    private ExpandableListViewAdapter expandableListViewAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -270,6 +276,8 @@ public class GoodsListActivity extends AppCompatActivity {
 
         recyclerview.setLayoutManager(new GridLayoutManager(this, 2));
 
+
+
     }
 
     private void getData() {
@@ -326,6 +334,7 @@ public class GoodsListActivity extends AppCompatActivity {
                 break;
             case R.id.rl_select_type://类别 llTypeRoot
                 showLinearLayout(llTypeRoot);
+                initExpandableListView();
                 break;
             case R.id.btn_drawer_layout_cancel://取消 回到llSelectRoot
                 showLinearLayout(llSelectRoot);
@@ -348,6 +357,42 @@ public class GoodsListActivity extends AppCompatActivity {
         }
     }
 
+    private void initExpandableListView() {
+        //创建集合
+        group = new ArrayList<>();
+        child = new ArrayList<>();
+
+        //添加数据
+        addInfo("全部", new String[]{});
+        addInfo("上衣", new String[]{"古风", "和风", "lolita", "日常"});
+        addInfo("下装", new String[]{"日常", "泳衣", "汉风", "lolita", "创意T恤"});
+        addInfo("外套", new String[]{"汉风", "古风", "lolita", "胖次", "南瓜裤", "日常"});
+
+        //设置适配器
+        //设置适配器
+        expandableListViewAdapter = new ExpandableListViewAdapter(this, group, child);
+        expandableListView.setAdapter(expandableListViewAdapter);
+
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+                if(child.get(groupPosition).isEmpty()) {
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+        });
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                expandableListViewAdapter.isChildSelectable(groupPosition,childPosition);
+                expandableListViewAdapter.notifyDataSetChanged();
+                return true;
+            }
+        });
+    }
+
     //高亮传入的TextView的文字
     private void testToRed(TextView textView) {
         //设置默认
@@ -364,4 +409,14 @@ public class GoodsListActivity extends AppCompatActivity {
         llSelectRoot.setVisibility(View.GONE);
         l.setVisibility(View.VISIBLE);
     }
+    private void addInfo(String father, String[] datas) {
+        group.add(father);//下装
+        //下装--孩子的数据{日常", "泳衣", "汉风", "lolita", "创意T恤}
+        ArrayList<String> list = new ArrayList<String>();
+        for (int i = 0; i < datas.length; i++) {
+            list.add(datas[i]);
+        }
+        child.add(list);
+    }
+
 }
