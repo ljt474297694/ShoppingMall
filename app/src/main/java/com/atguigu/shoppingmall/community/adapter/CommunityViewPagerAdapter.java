@@ -4,9 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.atguigu.shoppingmall.community.fragment.HotPostFragment;
-import com.atguigu.shoppingmall.community.fragment.NewPostFragment;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,19 +22,11 @@ public class CommunityViewPagerAdapter extends FragmentPagerAdapter {
         return titles[position];
     }
 
-    public CommunityViewPagerAdapter(FragmentManager fm) {
+    public CommunityViewPagerAdapter(FragmentManager fm, ArrayList<Fragment> fragmentList) {
         super(fm);
-        initFragments();
+        this.fragmentList = fragmentList;
     }
 
-    private void initFragments() {
-        fragmentList = new ArrayList<>();
-
-        NewPostFragment newPostFragment = new NewPostFragment();
-        HotPostFragment hotPostFragment = new HotPostFragment();
-        fragmentList.add(newPostFragment);
-        fragmentList.add(hotPostFragment);
-    }
 
     @Override
     public Fragment getItem(int position) {

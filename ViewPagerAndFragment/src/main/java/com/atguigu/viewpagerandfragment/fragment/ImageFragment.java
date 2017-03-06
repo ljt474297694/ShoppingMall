@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,17 @@ import java.util.List;
 public class ImageFragment extends Fragment {
 
 
+    private  int position;
     private ImageView imageView;
+    private  boolean isViewCreated;
+    private boolean isVisibleToUser;
+
+    public ImageFragment(int i) {
+        this.position = i+1 ;
+    }
+
+    public ImageFragment() {
+    }
 
     @Nullable
     @Override
@@ -42,6 +53,24 @@ public class ImageFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        isViewCreated = true;
+        setData();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        this.isVisibleToUser = isVisibleToUser;
+        if(isVisibleToUser&&isViewCreated) {
+            setData();
+        }
+    }
+
+    private void setData() {
+        if(!isVisibleToUser||!isViewCreated) {
+            return;
+        }
+        isViewCreated = false;
         String image = getArguments().getString("image");
         if (!TextUtils.isEmpty(image)) {
             Glide.with(getActivity()).load(image).into(imageView);
@@ -51,7 +80,9 @@ public class ImageFragment extends Fragment {
             alpha.setRepeatCount(ValueAnimator.INFINITE);
             alpha.start();
         }
+        Log.e("TAG", "ImageFragment onActivityCreated() 第"+position+"初始化完成");
     }
+
     public static Intent getExplicitIntent(Context context, Intent implicitIntent) {
         // Retrieve all services that can match the given intent
         PackageManager pm = context.getPackageManager();

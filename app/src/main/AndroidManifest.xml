@@ -32,8 +32,10 @@
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"></activity>
-        <activity android:name=".app.CallCenterActivity"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".app.CallCenterActivity" />
+        <activity android:name=".app.LoginActivity" />
+        <activity android:name=".home.activity.GoodsListActivity"></activity>
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.animation.TimeInterpolator;
 
 
 public class BreatheInterpolator implements TimeInterpolator {
+
     @Override
     public float getInterpolation(float input) {
 

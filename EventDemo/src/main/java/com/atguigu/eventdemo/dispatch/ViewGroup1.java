@@ -26,12 +26,16 @@ public class ViewGroup1 extends FrameLayout {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         Log.e("TAG", "ViewGroup1 onTouchEvent()"+actionToStr(event.getAction()));
-        return super.onTouchEvent(event);
+        return true;
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         Log.e("TAG", "ViewGroup1 onInterceptTouchEvent()"+actionToStr(ev.getAction()));
+
+        if(ev.getAction()==MotionEvent.ACTION_MOVE) {
+            return true;
+        }
         return super.onInterceptTouchEvent(ev);
     }
     public String actionToStr(int action){

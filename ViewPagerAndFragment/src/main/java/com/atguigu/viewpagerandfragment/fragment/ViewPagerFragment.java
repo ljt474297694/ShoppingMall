@@ -66,7 +66,7 @@ public class ViewPagerFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("image",datas[i]);
 
-            imageFragment = new ImageFragment();
+            imageFragment = new ImageFragment(i);
             imageFragment.setArguments(bundle);
 
             fragments.add(imageFragment);

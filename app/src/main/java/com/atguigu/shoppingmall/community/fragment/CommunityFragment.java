@@ -1,6 +1,7 @@
 package com.atguigu.shoppingmall.community.fragment;
 
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
@@ -9,6 +10,8 @@ import android.widget.Toast;
 import com.atguigu.shoppingmall.R;
 import com.atguigu.shoppingmall.base.BaseFragment;
 import com.atguigu.shoppingmall.community.adapter.CommunityViewPagerAdapter;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,6 +31,7 @@ public class CommunityFragment extends BaseFragment {
     TabLayout tablayout;
     @InjectView(R.id.view_pager)
     ViewPager viewPager;
+    private ArrayList<Fragment> fragmentList;
 
     @Override
     public View initView() {
@@ -39,11 +43,20 @@ public class CommunityFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        CommunityViewPagerAdapter adapter = new CommunityViewPagerAdapter(getFragmentManager());
+        initFragments();
+        CommunityViewPagerAdapter adapter = new CommunityViewPagerAdapter(getFragmentManager(),fragmentList);
         viewPager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewPager);
     }
 
+    private void initFragments() {
+        fragmentList = new ArrayList<>();
+
+        NewPostFragment newPostFragment = new NewPostFragment();
+        HotPostFragment hotPostFragment = new HotPostFragment();
+        fragmentList.add(newPostFragment);
+        fragmentList.add(hotPostFragment);
+    }
 
     @Override
     public void onDestroyView() {

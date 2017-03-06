@@ -29,6 +29,7 @@
             android:textColor="@android:color/holo_blue_bright"
             android:textSize="20sp" />
         <com.atguigu.eventdemo.dispatch.View
+            android:id="@+id/view"
             android:layout_gravity="center"
             android:layout_width="80dp"
             android:layout_height="80dp"

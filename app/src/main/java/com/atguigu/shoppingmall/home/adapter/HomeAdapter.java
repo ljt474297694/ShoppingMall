@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.atguigu.shoppingmall.R;
 import com.atguigu.shoppingmall.app.GoodsInfoActivity;
 import com.atguigu.shoppingmall.app.WebViewActivity;
+import com.atguigu.shoppingmall.home.activity.GoodsListActivity;
 import com.atguigu.shoppingmall.home.bean.GoodsBean;
 import com.atguigu.shoppingmall.home.bean.HomeBean;
 import com.atguigu.shoppingmall.home.bean.WebViewBean;
@@ -291,7 +292,7 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                     webViewBean.setIcon_url(act_info.get(position).getIcon_url());
                     webViewBean.setUrl(act_info.get(position).getUrl());
 
-                    mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(WEBVIEW_BEAN,webViewBean));
+                    mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra(WEBVIEW_BEAN, webViewBean));
                 }
             });
             actViewpager.setAdapter(viewPagerAdapter);
@@ -322,6 +323,11 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                    Toast.makeText(mContext, position  "", Toast.LENGTH_SHORT).show();
+                    if (position < 9) {
+                        mContext.startActivity(
+                                new Intent(mContext, GoodsListActivity.class)
+                                        .putExtra("position", position));
+                    }
 
                 }
             });
@@ -347,7 +353,7 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
 
             ArrayList<String> images = new ArrayList<>();
             for (int i = 0; i < banner_info.size(); i++) {
-                images.add(Constants.BASE_URL_IMAGE +banner_info.get(i).getImage());
+                images.add(Constants.BASE_URL_IMAGE + banner_info.get(i).getImage());
             }
 
             banner.setImages(images)
