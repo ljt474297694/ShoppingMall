@@ -74,12 +74,15 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
+             android:clickable="false"
+            android:button="@null"
+            android:background="@drawable/checkbox_selector"
             android:id="@+id/iv_price_no_limit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            />
     </RelativeLayout>
 
     <View
@@ -102,12 +105,16 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
+             android:clickable="false"
+           
+            android:button="@null"
+            android:background="@drawable/checkbox_selector"
             android:id="@+id/iv_price_0_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+          />
     </RelativeLayout>
 
     <View
@@ -128,14 +135,21 @@
             android:background="#fff"
             android:text="15-30"
             android:textColor="#4e4444"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            android:id="@+id/textView2" />
 
-        <ImageView
+        <CheckBox
+             android:clickable="false"
+            android:button="@null"
+            android:background="@drawable/checkbox_selector"
             android:id="@+id/iv_price_15_30"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
+            android:layout_alignBaseline="@+id/textView2"
+            android:layout_alignBottom="@+id/textView2"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <View
@@ -159,13 +173,16 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
+             android:clickable="false"
+            android:button="@null"
+            android:background="@drawable/checkbox_selector"
             android:id="@+id/iv_price_30_50"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected"
-            android:clickable="true" />
+
+            />
     </RelativeLayout>
 
     <View
@@ -188,18 +205,16 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
+             android:clickable="false"
+            android:button="@null"
+            android:background="@drawable/checkbox_selector"
             android:id="@+id/iv_price_50_70"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+ />
     </RelativeLayout>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="#eeee" />
 
     <RelativeLayout
         android:id="@+id/rl_price_70_100"
@@ -216,13 +231,21 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
+            android:button="@null"
+             android:clickable="false"
+            android:background="@drawable/checkbox_selector"
             android:id="@+id/iv_price_70_100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+    />
     </RelativeLayout>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#eeee" />
 
     <View
         android:layout_width="wrap_content"
@@ -243,13 +266,15 @@
             android:text="100以上"
             android:textColor="#4e4444"
             android:textSize="15sp" />
-
-        <ImageView
+        <CheckBox
+             android:clickable="false"
+            android:button="@null"
+            android:background="@drawable/checkbox_selector"
             android:id="@+id/iv_price_100"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+ />
     </RelativeLayout>
 
     <View
@@ -295,12 +320,16 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
+            android:button="@null"
+             android:clickable="false"
+            android:background="@drawable/checkbox_selector"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/filter_type_selected" />
+            android:layout_alignParentEnd="true"
+            android:id="@+id/checkBox" />
     </RelativeLayout>
 
 </LinearLayout>

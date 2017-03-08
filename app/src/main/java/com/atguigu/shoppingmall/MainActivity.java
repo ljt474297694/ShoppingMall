@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new CommunityFragment());
         fragments.add(new ShoppingFragment());
         fragments.add(new UserFragment());
+
     }
     @Override
     protected void onNewIntent(Intent intent) {

@@ -83,6 +83,7 @@ public class HomeAdapter extends RecyclerView.Adapter<BaseViewHolder> {
      * 当前类型
      */
     public int currentType = BANNER;
+
     private long endTime;
     public static final String GOODS_BEAN = "goodsbean";
     public static final String WEBVIEW_BEAN = "WEBVIEW_BEAN";

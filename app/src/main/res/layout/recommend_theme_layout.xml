@@ -75,12 +75,15 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+
+            android:clickable="false" />
     </RelativeLayout>
 
     <View
@@ -103,12 +106,15 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+
+            android:clickable="false" />
     </RelativeLayout>
 
     <View
@@ -131,12 +137,14 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_funko"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            android:clickable="false" />
     </RelativeLayout>
 
     <View
@@ -159,12 +167,14 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_gsc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            android:clickable="false" />
     </RelativeLayout>
 
     <View
@@ -187,12 +197,14 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_origin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            android:clickable="false" />
     </RelativeLayout>
 
     <View
@@ -215,12 +227,14 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_sword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            android:clickable="false" />
     </RelativeLayout>
 
     <View
@@ -243,12 +257,15 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_food"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            
+            android:clickable="false" />
     </RelativeLayout>
 
     <View
@@ -271,12 +288,14 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_moon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            android:clickable="false" />
     </RelativeLayout>
 
     <View
@@ -299,12 +318,14 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_quanzhi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            android:clickable="false" />
     </RelativeLayout>
 
     <View
@@ -327,11 +348,16 @@
             android:textColor="#4e4444"
             android:textSize="15sp" />
 
-        <ImageView
+        <CheckBox
             android:id="@+id/iv_theme_gress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/filter_type_selected" />
+            android:layout_alignParentTop="true"
+
+            android:background="@drawable/checkbox_selector"
+            android:button="@null"
+            android:clickable="false" />
     </RelativeLayout>
 </LinearLayout>

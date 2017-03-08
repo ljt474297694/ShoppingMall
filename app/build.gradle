@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -17,6 +17,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+}
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.0.0'
+    }
+}
+greendao {
+    schemaVersion 1
+    daoPackage 'com.atguigu.shoppingmall.db'
+    targetGenDir 'src/main/java'
 }
 
 dependencies {
@@ -41,4 +54,12 @@ dependencies {
     compile 'com.android.support:percent:25.1.0'
     compile 'com.android.support:design:25.1.0'
     compile 'com.linsea:opendanmaku:1.0.0@aar'
+    compile 'cn.yipianfengye.android:zxing-library:2.1'
+    compile 'com.zhy:autolayout:1.4.5'
+    compile 'org.greenrobot:greendao:3.0.1'
+    compile 'org.greenrobot:greendao-generator:3.0.0'
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
+
+    compile 'com.zhy:flowlayout-lib:1.0.3'
 }

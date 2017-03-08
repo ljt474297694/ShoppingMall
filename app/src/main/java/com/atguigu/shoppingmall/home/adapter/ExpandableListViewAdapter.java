@@ -25,8 +25,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter {
     private final Context mContext;
     private final ArrayList<String> group;
     private final ArrayList<ArrayList<String>> child;
-    private int groupPosition;
-    private int childPosition;
+    public int groupPosition;
+    public int childPosition;
 
     public ExpandableListViewAdapter(Context mContext, ArrayList<String> group, ArrayList<ArrayList<String>> child) {
         this.mContext = mContext;

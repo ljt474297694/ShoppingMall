@@ -41,6 +41,7 @@ public class Button extends android.widget.Button {
     @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
+        Log.e("TAG", "Button onAttachedToWindow()");
     }
 
     /**
@@ -84,6 +85,7 @@ public class Button extends android.widget.Button {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        Log.e("TAG", "Button onDetachedFromWindow()");
     }
 
     /**

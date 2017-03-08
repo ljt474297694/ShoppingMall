@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageButton;
@@ -41,7 +42,11 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import okhttp3.Call;
 
+import static com.atguigu.shoppingmall.R.id.rl_price_nolimit;
+import static com.atguigu.shoppingmall.R.id.tv_drawer_price;
+
 public class GoodsListActivity extends AppCompatActivity {
+
 
     @InjectView(R.id.ib_goods_list_back)
     ImageButton ibGoodsListBack;
@@ -63,8 +68,6 @@ public class GoodsListActivity extends AppCompatActivity {
     LinearLayout llGoodsListHead;
     @InjectView(R.id.recyclerview)
     RecyclerView recyclerview;
-    @InjectView(R.id.dl_left)
-    DrawerLayout dlLeft;
     @InjectView(R.id.ib_drawer_layout_back)
     ImageButton ibDrawerLayoutBack;
     @InjectView(R.id.tv_ib_drawer_layout_title)
@@ -77,8 +80,9 @@ public class GoodsListActivity extends AppCompatActivity {
     RadioButton rbSelectNew;
     @InjectView(R.id.rg_select)
     RadioGroup rgSelect;
-    @InjectView(R.id.tv_drawer_price)
+    @InjectView(tv_drawer_price)
     TextView tvDrawerPrice;
+
     @InjectView(R.id.tv_drawer_recommend)
     TextView tvDrawerRecommend;
     @InjectView(R.id.rl_select_recommend_theme)
@@ -96,31 +100,31 @@ public class GoodsListActivity extends AppCompatActivity {
     @InjectView(R.id.btn_drawer_layout_confirm)
     Button btnDrawerLayoutConfirm;
     @InjectView(R.id.iv_price_no_limit)
-    ImageView ivPriceNoLimit;
-    @InjectView(R.id.rl_price_nolimit)
+    CheckBox ivPriceNoLimit;
+    @InjectView(rl_price_nolimit)
     RelativeLayout rlPriceNolimit;
     @InjectView(R.id.iv_price_0_15)
-    ImageView ivPrice015;
+    CheckBox ivPrice015;
     @InjectView(R.id.rl_price_0_15)
     RelativeLayout rlPrice015;
     @InjectView(R.id.iv_price_15_30)
-    ImageView ivPrice1530;
+    CheckBox ivPrice1530;
     @InjectView(R.id.rl_price_15_30)
     RelativeLayout rlPrice1530;
     @InjectView(R.id.iv_price_30_50)
-    ImageView ivPrice3050;
+    CheckBox ivPrice3050;
     @InjectView(R.id.rl_price_30_50)
     RelativeLayout rlPrice3050;
     @InjectView(R.id.iv_price_50_70)
-    ImageView ivPrice5070;
+    CheckBox ivPrice5070;
     @InjectView(R.id.rl_price_50_70)
     RelativeLayout rlPrice5070;
     @InjectView(R.id.iv_price_70_100)
-    ImageView ivPrice70100;
+    CheckBox ivPrice70100;
     @InjectView(R.id.rl_price_70_100)
     RelativeLayout rlPrice70100;
     @InjectView(R.id.iv_price_100)
-    ImageView ivPrice100;
+    CheckBox ivPrice100;
     @InjectView(R.id.rl_price_100)
     RelativeLayout rlPrice100;
     @InjectView(R.id.et_price_start)
@@ -138,43 +142,43 @@ public class GoodsListActivity extends AppCompatActivity {
     @InjectView(R.id.btn_drawer_theme_confirm)
     Button btnDrawerThemeConfirm;
     @InjectView(R.id.iv_theme_all)
-    ImageView ivThemeAll;
+    CheckBox ivThemeAll;
     @InjectView(R.id.rl_theme_all)
     RelativeLayout rlThemeAll;
     @InjectView(R.id.iv_theme_note)
-    ImageView ivThemeNote;
+    CheckBox ivThemeNote;
     @InjectView(R.id.rl_theme_note)
     RelativeLayout rlThemeNote;
     @InjectView(R.id.iv_theme_funko)
-    ImageView ivThemeFunko;
+    CheckBox ivThemeFunko;
     @InjectView(R.id.rl_theme_funko)
     RelativeLayout rlThemeFunko;
     @InjectView(R.id.iv_theme_gsc)
-    ImageView ivThemeGsc;
+    CheckBox ivThemeGsc;
     @InjectView(R.id.rl_theme_gsc)
     RelativeLayout rlThemeGsc;
     @InjectView(R.id.iv_theme_origin)
-    ImageView ivThemeOrigin;
+    CheckBox ivThemeOrigin;
     @InjectView(R.id.rl_theme_origin)
     RelativeLayout rlThemeOrigin;
     @InjectView(R.id.iv_theme_sword)
-    ImageView ivThemeSword;
+    CheckBox ivThemeSword;
     @InjectView(R.id.rl_theme_sword)
     RelativeLayout rlThemeSword;
     @InjectView(R.id.iv_theme_food)
-    ImageView ivThemeFood;
+    CheckBox ivThemeFood;
     @InjectView(R.id.rl_theme_food)
     RelativeLayout rlThemeFood;
     @InjectView(R.id.iv_theme_moon)
-    ImageView ivThemeMoon;
+    CheckBox ivThemeMoon;
     @InjectView(R.id.rl_theme_moon)
     RelativeLayout rlThemeMoon;
     @InjectView(R.id.iv_theme_quanzhi)
-    ImageView ivThemeQuanzhi;
+    CheckBox ivThemeQuanzhi;
     @InjectView(R.id.rl_theme_quanzhi)
     RelativeLayout rlThemeQuanzhi;
     @InjectView(R.id.iv_theme_gress)
-    ImageView ivThemeGress;
+    CheckBox ivThemeGress;
     @InjectView(R.id.rl_theme_gress)
     RelativeLayout rlThemeGress;
     @InjectView(R.id.ll_theme_root)
@@ -187,7 +191,8 @@ public class GoodsListActivity extends AppCompatActivity {
     ExpandableListView expandableListView;
     @InjectView(R.id.ll_type_root)
     LinearLayout llTypeRoot;
-
+    @InjectView(R.id.dl_left)
+    DrawerLayout dlLeft;
     /**
      * 请求网络
      */
@@ -209,11 +214,14 @@ public class GoodsListActivity extends AppCompatActivity {
     private ArrayList<String> group;
     private ArrayList<ArrayList<String>> child;
     private ExpandableListViewAdapter expandableListViewAdapter;
+    private ArrayList<CheckBox> ckeckPrice;
 
+    private String priceText = "不限";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_list);
+        ButterKnife.inject(this);
         initView();
         getData();
         getDataFromNet();
@@ -223,6 +231,16 @@ public class GoodsListActivity extends AppCompatActivity {
         ButterKnife.inject(this);
         testToRed(tvGoodsListSort); //综合排序高亮
         showLinearLayout(llSelectRoot); //侧滑默认显示筛选
+
+        ckeckPrice = new ArrayList<>();
+        ckeckPrice.add(ivPriceNoLimit);
+        ckeckPrice.add(ivPrice015);
+        ckeckPrice.add(ivPrice1530);
+        ckeckPrice.add(ivPrice3050);
+        ckeckPrice.add(ivPrice5070);
+        ckeckPrice.add(ivPrice70100);
+
+
     }
 
     private void getDataFromNet() {
@@ -277,7 +295,6 @@ public class GoodsListActivity extends AppCompatActivity {
         recyclerview.setLayoutManager(new GridLayoutManager(this, 2));
 
 
-
     }
 
     private void getData() {
@@ -285,7 +302,7 @@ public class GoodsListActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.ib_goods_list_back, R.id.tv_goods_list_search, R.id.ib_goods_list_home, R.id.tv_goods_list_sort, R.id.tv_goods_list_price, R.id.tv_goods_list_select,R.id.ib_drawer_layout_back, R.id.ib_drawer_layout_confirm, R.id.rl_select_price, R.id.rl_select_recommend_theme, R.id.rl_select_type, R.id.btn_drawer_layout_cancel, R.id.btn_drawer_layout_confirm, R.id.btn_drawer_theme_cancel, R.id.btn_drawer_theme_confirm, R.id.btn_drawer_type_cancel, R.id.btn_drawer_type_confirm})
+    @OnClick({R.id.btn_select_all,R.id.rl_price_15_30, R.id.rl_price_0_15, R.id.rl_price_nolimit, R.id.ib_goods_list_back, R.id.tv_goods_list_search, R.id.ib_goods_list_home, R.id.tv_goods_list_sort, R.id.tv_goods_list_price, R.id.tv_goods_list_select, R.id.ib_drawer_layout_back, R.id.ib_drawer_layout_confirm, R.id.rl_select_price, R.id.rl_select_recommend_theme, R.id.rl_select_type, R.id.btn_drawer_layout_cancel, R.id.btn_drawer_layout_confirm, R.id.btn_drawer_theme_cancel, R.id.btn_drawer_theme_confirm, R.id.btn_drawer_type_cancel, R.id.btn_drawer_type_confirm})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ib_goods_list_back:
@@ -324,7 +341,11 @@ public class GoodsListActivity extends AppCompatActivity {
                 dlLeft.closeDrawers();   //关闭DrawLayout
                 break;
             case R.id.ib_drawer_layout_confirm:
-                Toast.makeText(this, "筛选-确定", Toast.LENGTH_SHORT).show();
+                dlLeft.closeDrawers();
+                position = 2;
+                getDataFromNet();
+                Toast.makeText(GoodsListActivity.this, tvDrawerPrice.getText().toString()+"--"+tvDrawerType.getText().toString()+"--"+tvDrawerRecommend.getText().toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "筛选-确定", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.rl_select_price://显示-价格 llPriceRoot
                 showLinearLayout(llPriceRoot);
@@ -341,6 +362,17 @@ public class GoodsListActivity extends AppCompatActivity {
                 break;
             case R.id.btn_drawer_layout_confirm:
                 Toast.makeText(this, "价格-确定", Toast.LENGTH_SHORT).show();
+                if(ivPrice1530.isChecked()) {
+                    priceText = "15-30";
+                }
+                if(ivPriceNoLimit.isChecked()) {
+                    priceText = "不限";
+                }
+                if(ivPrice015.isChecked()) {
+                    priceText = "0-15";
+                }
+                tvDrawerPrice.setText(priceText);
+                showLinearLayout(llSelectRoot);
                 break;
             case R.id.btn_drawer_theme_cancel://取消 回到llSelectRoot
                 showLinearLayout(llSelectRoot);
@@ -353,6 +385,28 @@ public class GoodsListActivity extends AppCompatActivity {
                 break;
             case R.id.btn_drawer_type_confirm:
                 Toast.makeText(this, "类别-确定", Toast.LENGTH_SHORT).show();
+                tvDrawerType.setText(child.get(expandableListViewAdapter.groupPosition).get(expandableListViewAdapter.childPosition));
+                showLinearLayout(llSelectRoot);
+                break;
+            case R.id.rl_price_nolimit:
+                Toast.makeText(GoodsListActivity.this, "全部", Toast.LENGTH_SHORT).show();
+                ivPriceNoLimit.setChecked(!ivPriceNoLimit.isChecked());
+                hiedPriceCheckBox(ivPriceNoLimit);
+
+                break;
+            case R.id.rl_price_0_15:
+                Toast.makeText(GoodsListActivity.this, "0 15", Toast.LENGTH_SHORT).show();
+                ivPrice015.setChecked(!ivPrice015.isChecked());
+                hiedPriceCheckBox(ivPrice015);
+
+                break;
+            case R.id.rl_price_15_30:
+                Toast.makeText(GoodsListActivity.this, "15 30", Toast.LENGTH_SHORT).show();
+                ivPrice1530.setChecked(!ivPrice1530.isChecked());
+                hiedPriceCheckBox(ivPrice1530);
+                break;
+            case R.id.btn_select_all:
+
                 break;
         }
     }
@@ -376,9 +430,9 @@ public class GoodsListActivity extends AppCompatActivity {
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                if(child.get(groupPosition).isEmpty()) {
+                if (child.get(groupPosition).isEmpty()) {
                     return true;
-                }else{
+                } else {
                     return false;
                 }
             }
@@ -386,7 +440,7 @@ public class GoodsListActivity extends AppCompatActivity {
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                expandableListViewAdapter.isChildSelectable(groupPosition,childPosition);
+                expandableListViewAdapter.isChildSelectable(groupPosition, childPosition);
                 expandableListViewAdapter.notifyDataSetChanged();
                 return true;
             }
@@ -401,6 +455,7 @@ public class GoodsListActivity extends AppCompatActivity {
         tvGoodsListSelect.setTextColor(Color.parseColor("#333538"));
         textView.setTextColor(Color.parseColor("#ed4141"));
     }
+
     //显示传入的LinearLayout
     private void showLinearLayout(LinearLayout l) {
         llPriceRoot.setVisibility(View.GONE);
@@ -409,6 +464,7 @@ public class GoodsListActivity extends AppCompatActivity {
         llSelectRoot.setVisibility(View.GONE);
         l.setVisibility(View.VISIBLE);
     }
+
     private void addInfo(String father, String[] datas) {
         group.add(father);//下装
         //下装--孩子的数据{日常", "泳衣", "汉风", "lolita", "创意T恤}
@@ -419,4 +475,11 @@ public class GoodsListActivity extends AppCompatActivity {
         child.add(list);
     }
 
+    private void hiedPriceCheckBox(CheckBox checkBox) {
+        for(int i = 0; i < ckeckPrice.size(); i++) {
+          if(checkBox!=ckeckPrice.get(i)) {
+              ckeckPrice.get(i).setChecked(false);
+          }
+        }
+    }
 }

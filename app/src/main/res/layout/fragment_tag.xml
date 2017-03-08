@@ -2,14 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:zhy="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".type.fragment.TagFragment">
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/id_flowlayout"
+            zhy:max_select="-1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+        </com.zhy.view.flowlayout.TagFlowLayout>
 
 
-    <GridView
-        android:id="@+id/gv_tag"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="3" />
+    </ScrollView>
+
 
 </LinearLayout>

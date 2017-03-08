@@ -1,12 +1,17 @@
 package com.atguigu.shoppingmall.type.fragment;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.atguigu.shoppingmall.R;
+import com.atguigu.shoppingmall.app.SearchActivity;
 import com.atguigu.shoppingmall.base.BaseFragment;
 import com.flyco.tablayout.SegmentTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
@@ -15,6 +20,7 @@ import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by 李金桐 on 2017/2/22.
@@ -30,7 +36,7 @@ public class TypeFragment extends BaseFragment {
     @InjectView(R.id.fl_type)
     FrameLayout flType;
     private Fragment tempFragemnt;
-    String[] titls = {"分类","标签"};
+    String[] titls = {"分类", "标签"};
     private ArrayList<Fragment> fragments;
 
     @Override
@@ -101,5 +107,18 @@ public class TypeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.inject(this, rootView);
+        return rootView;
+    }
+
+    @OnClick(R.id.iv_type_search)
+    public void onClick() {
+        startActivity(new Intent(mContext, SearchActivity.class));
     }
 }

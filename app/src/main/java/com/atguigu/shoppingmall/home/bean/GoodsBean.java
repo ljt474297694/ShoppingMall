@@ -22,6 +22,17 @@ public class GoodsBean implements Serializable {
     private String name;
     private String product_id;
     private boolean isChecked = true;
+
+    private String express = "尚硅谷";
+
+    public String getExpress() {
+        return express;
+    }
+
+    public void setExpress(String express) {
+        this.express = express;
+    }
+
     /**
      * 某个商品在购物车购买的数量
      */

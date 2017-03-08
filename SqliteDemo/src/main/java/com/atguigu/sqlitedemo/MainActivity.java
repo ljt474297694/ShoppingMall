@@ -58,20 +58,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        //获取当前版本号
         version = getSharedPreferences("version", MODE_PRIVATE).getInt("version", 1);
         studentDAO = new StudentDAO(this, version);
     }
 
-    @OnClick({R.id.bt_select, R.id.bt_add, R.id.bt_updata, R.id.bt_delete, R.id.bt_updata_table,R.id.bt_delete_table})
+    @OnClick({R.id.bt_select, R.id.bt_add, R.id.bt_updata, R.id.bt_delete, R.id.bt_updata_table})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.bt_delete_table:
-                studentDAO.deleteTable();
-                tvContent.setText("删除成功");
-                getSharedPreferences("version", MODE_PRIVATE).edit().putInt("version", 1).commit();
-                version = getSharedPreferences("version", MODE_PRIVATE).getInt("version", 1);
-                break;
             case R.id.bt_updata_table:
+                //更新版本到2.0 保存到sp中
                 getSharedPreferences("version", MODE_PRIVATE).edit().putInt("version", 2).commit();
                 version = getSharedPreferences("version", MODE_PRIVATE).getInt("version", 1);
                 studentDAO = new StudentDAO(this, version);
@@ -106,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 int id = Integer.parseInt(etUpdataId.getText().toString());
-                int updata = studentDAO.updata(new Student(id, name));
+                int updata = studentDAO.updata(new Student(id, name));//修改的条数
 
 
                 if (updata > 0) {

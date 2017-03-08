@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_qrcold"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#11000000"
+    tools:context="com.atguigu.shoppingmall.app.QRColdActivity">
+
+    <ImageView
+        android:id="@+id/iv_qr_cold"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        />
+</RelativeLayout>

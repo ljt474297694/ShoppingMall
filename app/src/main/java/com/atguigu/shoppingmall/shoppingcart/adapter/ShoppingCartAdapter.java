@@ -87,9 +87,9 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
                 CartStorage.getInstance(mContext).updataData(goodsBean);
 
                 showTotalPrice();
-
         }
     });
+        holder.express_name.setText("由"+goodsBean.getExpress()+"发货");
 }
 
     @Override
@@ -159,6 +159,8 @@ public class ShoppingCartAdapter extends RecyclerView.Adapter<ShoppingCartAdapte
         TextView tvPriceGov;
         @InjectView(R.id.addSubView)
         AddSubView addSubView;
+        @InjectView(R.id.express_name)
+        TextView express_name;
 
         public ViewHolder(View itemView) {
             super(itemView);

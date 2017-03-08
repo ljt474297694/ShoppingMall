@@ -173,7 +173,8 @@ public class GoodsInfoActivity extends AppCompatActivity {
                 CartStorage.getInstance(this).addData(goodsBean);
                 break;
             case R.id.tv_more_share:
-                Toast.makeText(this, "分享", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "分享", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, QRColdActivity.class).putExtra("url",goodsBean.getFigure()));
                 break;
             case R.id.tv_more_search:
                 Toast.makeText(this, "搜索", Toast.LENGTH_SHORT).show();
