@@ -26,7 +26,6 @@ public class ImageFragment extends BaseFragment {
     @Override
     protected View initView() {
         view = new ImageView(mContext);
-
         return view;
     }
 

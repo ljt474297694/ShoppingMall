@@ -1,6 +1,7 @@
 package com.lijintong.android.fragment;
 
 
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -21,10 +22,10 @@ import butterknife.InjectView;
 
 public class TypeFragment extends BaseFragment {
 
-
     @InjectView(R.id.viewpager)
     ViewPager viewpager;
-
+    @InjectView(R.id.tablayout)
+    TabLayout tabLayout;
     ArrayList<BaseFragment> fragments;
     @Override
     protected View initView() {
@@ -41,7 +42,7 @@ public class TypeFragment extends BaseFragment {
         fragments.add(new TypeRecyclerFragment());
         TypeFragmentPagerAdapter adapter = new TypeFragmentPagerAdapter(getChildFragmentManager(),fragments);
         viewpager.setAdapter(adapter);
-
+        tabLayout.setupWithViewPager(viewpager);
     }
 
 

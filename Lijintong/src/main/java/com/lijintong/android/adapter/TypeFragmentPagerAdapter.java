@@ -16,6 +16,11 @@ import java.util.ArrayList;
 
 public class TypeFragmentPagerAdapter extends FragmentPagerAdapter {
 
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return position == 0?"页面一":"页面二";
+    }
+
     private  ArrayList<BaseFragment> datas;
 
     public TypeFragmentPagerAdapter(FragmentManager fm, ArrayList<BaseFragment> fragments) {
