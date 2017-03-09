@@ -82,17 +82,17 @@ public class TypeRecyclerFragment extends BaseFragment {
         public ViewHolder(View view) {
             super(view);
             ButterKnife.inject(this, view);
+
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, getLayoutPosition() == 0 ? "我是类型1 (。・`ω´・)" : "我是类型2 (ง •̀_•́)ง", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getLayoutPosition()%2== 0 ? "我是类型1 (。・`ω´・)" : "我是类型2 (ง •̀_•́)ง", Toast.LENGTH_SHORT).show();
                 }
             });
 
             view.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View v) {
-
                     new AlertDialog.Builder(mContext)
                             .setTitle("确定删除吗")
                             .setPositiveButton("确定", new DialogInterface.OnClickListener() {

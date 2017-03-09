@@ -50,7 +50,7 @@ public class HomeFragment extends BaseFragment {
         super.initData();
         imageFragments = new ArrayList<>();
         for (int i = 0; i < datas.length; i++) {
-            imageFragments.add(new ImageFragment(datas[i]));
+            imageFragments.add(new ImageFragment(datas[i],viewpager));
         }
         HomeFragmentPagerAdapter adapter = new HomeFragmentPagerAdapter(getFragmentManager(),imageFragments);
         viewpager.setAdapter(adapter);

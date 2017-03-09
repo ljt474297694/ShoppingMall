@@ -1,5 +1,7 @@
 package com.lijintong.android.fragment;
 
+import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,19 +15,35 @@ import com.lijintong.android.base.BaseFragment;
  */
 
 public class ImageFragment extends BaseFragment {
+    private ViewPager viewpager;
     private String url;
     private ImageView view;
 
-
-    public ImageFragment(String url) {
+    public ImageFragment(String url, ViewPager viewpager) {
         super();
         this.url = url;
-
+        this.viewpager = viewpager;
     }
 
     @Override
     protected View initView() {
         view = new ImageView(mContext);
+
+        view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        if (event.getX() > view.getWidth() / 2) {
+                            viewpager.setCurrentItem(viewpager.getCurrentItem() + 1);
+                        } else {
+                            viewpager.setCurrentItem(viewpager.getCurrentItem() - 1);
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
         return view;
     }
 

@@ -67,9 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case rb_1:
                         switchFragment(fragments.get(0));
-
                         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-
                         break;
                     case R.id.rb_2:
                         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
