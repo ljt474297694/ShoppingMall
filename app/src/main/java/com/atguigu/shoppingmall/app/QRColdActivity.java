@@ -26,6 +26,7 @@ public class QRColdActivity extends AppCompatActivity {
     ImageView ivQrCold;
     AutoLinearLayout a;
     AutoLayoutActivity aa;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +82,7 @@ public class QRColdActivity extends AppCompatActivity {
         a = new int[]{1, 2, 94, 63, 498, 46, 13, 541, 854, 64, 6351, 4};
         for (int i = 1; i < a.length; i++) {
             int temp = a[i];
-            for (int l = i - 1; l >= 0 && temp < a[l]; l--) {
+            for (int l = i - 1; l >= 0 && a[l] > temp; l--) {
                 a[l + 1] = a[l];
                 a[l] = temp;
             }
@@ -89,5 +90,36 @@ public class QRColdActivity extends AppCompatActivity {
         for (int i = 0; i < a.length; i++) {
             Log.e("TAG", "QRColdActivity onCreate()插入" + a[i]);
         }
+        a = new int[]{1, 2, 94, 63, 498, 46, 13, 541, 854, 64, 6351, 4};
+
+        sort(a, 0, a.length - 1);
+        for (int i = 0; i < a.length; i++) {
+            Log.e("TAG", "QRColdActivity onCreate()快速" + a[i]);
+        }
+    }
+
+    public int index(int[] array, int start, int end) {
+
+        //固定的切分方式
+        int temp = array[start];
+        while(start<end) {
+            while(start<end&&array[end]>=temp) {
+                end--;
+            }
+            array[start] = array[end];
+            while(start<end&&array[start]<=temp) {
+                start++;
+            }
+            array[end] = array[start];
+        }
+        array[end] = temp;
+        return end;
+
+    }
+
+    public void sort(int[] array, int start, int end) {
+        int index = index(array, start, end);
+        sort(array,index+1,end);
+        sort(array,start,index-1);
     }
 }

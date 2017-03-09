@@ -21,6 +21,7 @@ import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -96,11 +97,18 @@ public class TagFragment extends BaseFragment {
             }
         });
 
+
         id_flowlayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 Toast.makeText(mContext, "" + datas.get(position), Toast.LENGTH_SHORT).show();
                 return true;
+            }
+        });
+        id_flowlayout.setOnSelectListener(new TagFlowLayout.OnSelectListener() {
+            @Override
+            public void onSelected(Set<Integer> selectPosSet) {
+
             }
         });
     }

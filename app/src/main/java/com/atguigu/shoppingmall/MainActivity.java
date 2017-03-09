@@ -37,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
 
         initFragments();
 
-
         initListener();
     }
+
+
 
     private void initListener() {
         rgMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -100,12 +101,13 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new UserFragment());
 
     }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         //得到id
-        int  checkId = intent.getIntExtra("checkId",R.id.rb_home);
-        switch (checkId){
+        int checkId = intent.getIntExtra("checkId", R.id.rb_home);
+        switch (checkId) {
             case R.id.rb_home:
                 //切换到主页面
                 rgMain.check(R.id.rb_home);

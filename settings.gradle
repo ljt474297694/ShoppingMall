@@ -1,2 +1,2 @@
-include ':app', ':ViewPagerAndFragment', ':service', ':SqliteDemo', ':EventDemo', ':InterfaceDemo'
+include ':app', ':ViewPagerAndFragment', ':service', ':SqliteDemo', ':EventDemo', ':InterfaceDemo', ':Lijintong'
 
