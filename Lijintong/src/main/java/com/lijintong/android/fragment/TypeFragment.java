@@ -5,7 +5,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.lijintong.android.R;
+import com.lijintong.android.adapter.TypeFragmentPagerAdapter;
 import com.lijintong.android.base.BaseFragment;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -22,6 +25,7 @@ public class TypeFragment extends BaseFragment {
     @InjectView(R.id.viewpager)
     ViewPager viewpager;
 
+    ArrayList<BaseFragment> fragments;
     @Override
     protected View initView() {
         View view = View.inflate(mContext, R.layout.fragment_type, null);
@@ -32,6 +36,12 @@ public class TypeFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
+        fragments= new ArrayList<>();
+        fragments.add(new TypeListFragment());
+        fragments.add(new TypeRecyclerFragment());
+        TypeFragmentPagerAdapter adapter = new TypeFragmentPagerAdapter(getChildFragmentManager(),fragments);
+        viewpager.setAdapter(adapter);
+
     }
 
 
