@@ -8,13 +8,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lijintong.android.fragment.HomeFragment;
 import com.lijintong.android.fragment.TypeFragment;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private Fragment tempFragment;
     private int position;
     String[] datas = {"页面1", "页面2", "页面3", "页面4", "页面5"};
+    private Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,15 +81,16 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(new HomeFragment());
         fragments.add(new TypeFragment());
 
-        final Adapter adapter = new Adapter();
+        adapter = new Adapter();
 
         mListView.setAdapter(adapter);
 
-        mListView.setOnClickListener(new View.OnClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 drawerLayout.closeDrawers();
+                MainActivity.this.position = position;
+                Toast.makeText(MainActivity.this, datas[position], Toast.LENGTH_SHORT).show();
                 adapter.notifyDataSetChanged();
             }
         });
@@ -143,21 +146,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (MainActivity.this.position == position) {
-                    viewHolder.textview.setTextColor(Color.parseColor("#ff00ddff"));
-            }else{
-                    viewHolder.textview.setTextColor(Color.parseColor("#fff"));
+                viewHolder.textview.setTextColor(Color.RED);
+            } else {
+                viewHolder.textview.setTextColor(Color.WHITE);
             }
             viewHolder.textview.setText(datas[position]);
             return convertView;
         }
 
-        class ViewHolder {
-            @InjectView(R.id.textview)
-            TextView textview;
 
-            ViewHolder(View view) {
-                ButterKnife.inject(this, view);
-            }
+    }
+
+    class ViewHolder {
+        @InjectView(R.id.textview)
+        TextView textview;
+
+        ViewHolder(View view) {
+            ButterKnife.inject(this, view);
         }
     }
 }
