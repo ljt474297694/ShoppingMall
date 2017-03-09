@@ -26,7 +26,7 @@ public class HomeFragment extends BaseFragment {
     @InjectView(R.id.tablayout)
     TabLayout tablayout;
     @InjectView(R.id.viewpager)
-    ViewPager viewpager;
+    public ViewPager viewpager;
 
     ArrayList<ImageFragment> imageFragments;
 

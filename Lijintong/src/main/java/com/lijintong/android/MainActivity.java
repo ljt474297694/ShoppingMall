@@ -25,11 +25,13 @@ import java.util.ArrayList;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+import static com.lijintong.android.R.id.rb_1;
+
 public class MainActivity extends AppCompatActivity {
 
     @InjectView(R.id.fl_main)
     FrameLayout flMain;
-    @InjectView(R.id.rb_1)
+    @InjectView(rb_1)
     RadioButton rb1;
     @InjectView(R.id.rb_2)
     RadioButton rb2;
@@ -63,17 +65,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
-                    case R.id.rb_1:
+                    case rb_1:
                         switchFragment(fragments.get(0));
+
+                        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+
                         break;
                     case R.id.rb_2:
-
+                        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                         switchFragment(fragments.get(1));
                         break;
                 }
             }
         });
-        rgMain.check(R.id.rb_1);
+        rgMain.check(rb_1);
     }
 
     private void initData() {
@@ -92,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.position = position;
                 Toast.makeText(MainActivity.this, datas[position], Toast.LENGTH_SHORT).show();
                 adapter.notifyDataSetChanged();
+                if (rb1.isChecked()) {
+                    HomeFragment homeFragment = (HomeFragment) fragments.get(0);
+                    homeFragment.viewpager.setCurrentItem(position);
+                }
             }
         });
     }
