@@ -1,11 +1,14 @@
 package com.lijintong.android.fragment;
 
 
-import android.view.Gravity;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.TextView;
 
+import com.lijintong.android.R;
 import com.lijintong.android.base.BaseFragment;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by 李金桐 on 2017/3/9.
@@ -15,18 +18,26 @@ import com.lijintong.android.base.BaseFragment;
 
 public class TypeFragment extends BaseFragment {
 
-    private TextView view;
+
+    @InjectView(R.id.viewpager)
+    ViewPager viewpager;
 
     @Override
     protected View initView() {
-        view = new TextView(mContext);
-        view.setText("分类");
-        view.setGravity(Gravity.CENTER);
+        View view = View.inflate(mContext, R.layout.fragment_type, null);
+        ButterKnife.inject(this, view);
         return view;
     }
 
     @Override
     protected void initData() {
         super.initData();
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.reset(this);
     }
 }
