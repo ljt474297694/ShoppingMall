@@ -86,7 +86,7 @@ public class TypeRecyclerFragment extends BaseFragment {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, getLayoutPosition()%2== 0 ? "我是类型1 (。・`ω´・)" : "我是类型2 (ง •̀_•́)ง", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, datas.get(getLayoutPosition()), Toast.LENGTH_SHORT).show();
                 }
             });
 

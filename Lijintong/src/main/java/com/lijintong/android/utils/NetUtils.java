@@ -66,7 +66,7 @@ public class NetUtils {
      * @param listener 返回结果的接口 需要声明类泛型和clazz为同一类型
      *                 注:接口的泛型必须和clazz为统一类型 否则会抛出类型转换异常
      */
-    public void okhttpUtilsGet(String url, final int id, final Class clazz, final responseBean listener) {
+    public void okhttpUtilsGet(final String url, final int id, final Class clazz, final responseBean listener) {
         OkHttpUtils.get().id(id).url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -76,6 +76,7 @@ public class NetUtils {
             @Override
             public void onResponse(String response, int id) {
                 if (TextUtils.isEmpty(response)) throw new RuntimeException("网络请求结果为空 请检查url");
+                CacheUtils.putString(mContext,url,response);
                 listener.onResponse(JSON.parseObject(response, clazz));
             }
         });

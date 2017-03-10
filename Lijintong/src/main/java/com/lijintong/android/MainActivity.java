@@ -67,9 +67,11 @@ public class MainActivity extends AppCompatActivity {
                 switch (checkedId) {
                     case rb_1:
                         switchFragment(fragments.get(0));
+                        //只有在主页面才可以滑动DrawerLayout
                         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                         break;
                     case R.id.rb_2:
+                        //屏蔽侧滑 菜单
                         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                         switchFragment(fragments.get(1));
                         break;
@@ -77,6 +79,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         rgMain.check(rb_1);
+
+        //当HomeFragment中ViewPager改变的时候 刷新DrawerLayout的侧滑菜单中 ListView的高亮位置
+        ((HomeFragment) fragments.get(0)).addOnPageChangeListener(new HomeFragment.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                MainActivity.this.position = position;
+                if(adapter!=null) {
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     private void initData() {
@@ -91,16 +104,20 @@ public class MainActivity extends AppCompatActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                drawerLayout.closeDrawers();
-                MainActivity.this.position = position;
                 Toast.makeText(MainActivity.this, datas[position], Toast.LENGTH_SHORT).show();
+                //关闭侧滑菜单
+                drawerLayout.closeDrawers();
+                //刷新侧滑菜单中ListView的高亮位置
+                MainActivity.this.position = position;
                 adapter.notifyDataSetChanged();
+                //根据ListView的点击位置 切换不同的页面
                 if (rb1.isChecked()) {
                     HomeFragment homeFragment = (HomeFragment) fragments.get(0);
                     homeFragment.viewpager.setCurrentItem(position);
                 }
             }
         });
+
     }
 
 

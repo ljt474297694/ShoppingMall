@@ -50,14 +50,39 @@ public class HomeFragment extends BaseFragment {
         super.initData();
         imageFragments = new ArrayList<>();
         for (int i = 0; i < datas.length; i++) {
-            imageFragments.add(new ImageFragment(datas[i],viewpager));
+            imageFragments.add(new ImageFragment(datas[i], viewpager));
         }
-        HomeFragmentPagerAdapter adapter = new HomeFragmentPagerAdapter(getFragmentManager(),imageFragments);
+        HomeFragmentPagerAdapter adapter = new HomeFragmentPagerAdapter(getFragmentManager(), imageFragments);
         viewpager.setAdapter(adapter);
         tablayout.setupWithViewPager(viewpager);
         tablayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(l!=null) {
+                    l.onPageSelected(position);
+                }
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
     }
 
+    public interface OnPageChangeListener {
+       void onPageSelected(int position);
+    }
+
+    private OnPageChangeListener l;
+
+    public void addOnPageChangeListener(OnPageChangeListener l) {
+        this.l = l;
+    }
 
     @Override
     public void onDestroyView() {

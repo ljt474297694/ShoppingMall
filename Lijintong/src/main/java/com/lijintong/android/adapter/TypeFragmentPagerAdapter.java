@@ -18,7 +18,7 @@ public class TypeFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return position == 0?"页面一":"页面二";
+        return position==0?"页面1":"页面2";
     }
 
     private  ArrayList<BaseFragment> datas;

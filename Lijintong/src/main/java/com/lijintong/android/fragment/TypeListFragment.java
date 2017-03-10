@@ -6,11 +6,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -46,6 +48,7 @@ public class TypeListFragment extends BaseFragment {
     private Adapter adapter;
     private List<TypeListBean.ResultBean> datas;
     private boolean isLoadMore;
+
     @Override
     protected View initView() {
         View view = View.inflate(mContext, R.layout.fragment_type_list, null);
@@ -58,7 +61,7 @@ public class TypeListFragment extends BaseFragment {
         super.initData();
         listview = refreshListView.getRefreshableView();
         String string = CacheUtils.getString(mContext, Constants.NEW_POST_URL);
-        if(!TextUtils.isEmpty(string)) {
+        if (!TextUtils.isEmpty(string)) {
             setAdapter(JSON.parseObject(string, TypeListBean.class));
         }
         getDataFromNet();
@@ -90,13 +93,11 @@ public class TypeListFragment extends BaseFragment {
             @Override
             public void onResponse(TypeListBean bean) {
                 refreshListView.onRefreshComplete();
-                if(!isLoadMore) {
+                if (!isLoadMore) {
                     setAdapter(bean);
-                }else{
-                    if(datas!=null&&adapter!=null) {
-                        datas.addAll(bean.getResult());
-                        adapter.notifyDataSetChanged();
-                    }
+                } else if (datas != null && adapter != null) {
+                    datas.addAll(bean.getResult());
+                    adapter.notifyDataSetChanged();
                 }
             }
 
